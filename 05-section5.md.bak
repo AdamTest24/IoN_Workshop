@@ -154,7 +154,7 @@ fig.colorbar(f1, ax=ax[0])
 ```
 
 ```{.output}
-<matplotlib.colorbar.Colorbar object at 0x7f5e28ecb670>
+<matplotlib.colorbar.Colorbar object at 0x7f3b5c41f610>
 ```
 
 ```python
@@ -262,34 +262,11 @@ Standard Scaler: removing the mean and scaling to unit variance
 
 ```python
 from sklearn.preprocessing import StandardScaler
-```
 
-```{.error}
-Error: ModuleNotFoundError: No module named 'sklearn'
-```
-
-```python
 scaler = StandardScaler()
-```
 
-```{.error}
-Error: NameError: name 'StandardScaler' is not defined
-```
-
-```python
 img1_scaled = scaler.fit_transform(img1_nz.reshape(-1, 1))
-```
-
-```{.error}
-Error: NameError: name 'scaler' is not defined
-```
-
-```python
 img2_scaled = scaler.fit_transform(img2_nz.reshape(-1, 1))
-```
-
-```{.error}
-Error: NameError: name 'scaler' is not defined
 ```
 
 
@@ -297,8 +274,8 @@ Error: NameError: name 'scaler' is not defined
 img1_scaled.shape
 ```
 
-```{.error}
-Error: NameError: name 'img1_scaled' is not defined
+```{.output}
+(4009, 1)
 ```
 
 ### Visualise and Concatenate
@@ -324,21 +301,7 @@ ax[1].hist2d(img1_nz, img2_nz, bins=50, vmax=10);
 from seaborn import kdeplot
 
 # Density Plot
-```
-
-```{.error}
-Error: ModuleNotFoundError: No module named 'seaborn'
-```
-
-```python
 kdeplot(x=img1_nz, y=img2_nz, ax=ax[2]);
-```
-
-```{.error}
-Error: NameError: name 'kdeplot' is not defined
-```
-
-```python
 show()
 ```
 
@@ -354,39 +317,12 @@ fig, ax = subplots(1, 3, figsize=(20, 6))
 ax[0].scatter(img1_scaled[:,0], img2_scaled[:,0])
 
 # 2D Histogram
-```
-
-```{.error}
-Error: NameError: name 'img1_scaled' is not defined
-```
-
-```python
 ax[1].hist2d(img1_scaled[:,0], img2_scaled[:,0], bins=50, vmax=10);
-```
 
-```{.error}
-Error: NameError: name 'img1_scaled' is not defined
-```
-
-```python
 from seaborn import kdeplot
 
 # Density Plot
-```
-
-```{.error}
-Error: ModuleNotFoundError: No module named 'seaborn'
-```
-
-```python
 kdeplot(x=img1_scaled[:,0], y=img2_scaled[:,0], ax=ax[2]);
-```
-
-```{.error}
-Error: NameError: name 'kdeplot' is not defined
-```
-
-```python
 show()
 ```
 
@@ -395,18 +331,12 @@ show()
 
 ```python
 all_img_scaled = concatenate([img1_scaled, img2_scaled], axis=1)
-```
 
-```{.error}
-Error: NameError: name 'img1_scaled' is not defined
-```
-
-```python
 all_img_scaled.shape
 ```
 
-```{.error}
-Error: NameError: name 'all_img_scaled' is not defined
+```{.output}
+(4009, 2)
 ```
 ## Segmenting images with Gaussian Mixtures
 
@@ -417,10 +347,6 @@ Error: NameError: name 'all_img_scaled' is not defined
 from sklearn.mixture import GaussianMixture
 ```
 
-```{.error}
-Error: ModuleNotFoundError: No module named 'sklearn'
-```
-
 
 ```python
 n_components = 3
@@ -429,26 +355,14 @@ RANDOM_STATE = 12345
 
 gmm = GaussianMixture(n_components=n_components, 
                       random_state=RANDOM_STATE)
-```
 
-```{.error}
-Error: NameError: name 'GaussianMixture' is not defined
-```
-
-```python
 all_img_labels = gmm.fit_predict(all_img_scaled)
-```
 
-```{.error}
-Error: NameError: name 'gmm' is not defined
-```
-
-```python
 all_img_labels[0]
 ```
 
-```{.error}
-Error: NameError: name 'all_img_labels' is not defined
+```{.output}
+2
 ```
 
 
@@ -456,13 +370,7 @@ Error: NameError: name 'all_img_labels' is not defined
 fig, ax = subplots(figsize=(8, 8))
 
 ax.scatter(img1_nz, img2_nz, c=all_img_labels, s=100)
-```
 
-```{.error}
-Error: NameError: name 'all_img_labels' is not defined
-```
-
-```python
 ax.set_xlabel('Image 1', fontsize=16)
 ax.set_ylabel('Image 2', fontsize=16);
 
@@ -476,10 +384,6 @@ show()
 all_img_labels_mapped = zeros(img1_slice.shape)
 
 all_img_labels_mapped[mask] = all_img_labels
-```
-
-```{.error}
-Error: NameError: name 'all_img_labels' is not defined
 ```
 
 

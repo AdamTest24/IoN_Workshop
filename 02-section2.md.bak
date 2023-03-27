@@ -181,7 +181,7 @@ image.rotate(-90, expand=True)
 ```
 
 ```{.output}
-<PIL.Image.Image image mode=RGB size=154x327 at 0x7F9E5FF36200>
+<PIL.Image.Image image mode=RGB size=154x327 at 0x7F5868598940>
 ```
 
 ## Image Masking
