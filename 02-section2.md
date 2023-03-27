@@ -34,7 +34,13 @@ First, we want to read in an image. For this part of the lesson, we use a 2D ima
 
 ```python
 from matplotlib.pyplot import subplots, show
+```
 
+```{.output}
+Matplotlib is building the font cache; this may take a moment.
+```
+
+```python
 from matplotlib.image import imread
 ```
 
@@ -181,7 +187,7 @@ image.rotate(-90, expand=True)
 ```
 
 ```{.output}
-<PIL.Image.Image image mode=RGB size=154x327 at 0x7F5868598940>
+<PIL.Image.Image image mode=RGB size=154x327 at 0x7EFE0442FAC0>
 ```
 
 ## Image Masking

@@ -11,6 +11,6 @@
 "episodes/05-section5.Rmd" "3513fcb730e796e1884188e4499dc940" "site/built/05-section5.md" "2023-03-27"
 "instructors/instructor-notes.md" "cae72b6712578d74a49fea7513099f8c" "site/built/instructor-notes.md" "2023-03-27"
 "learners/reference.md" "1c7cc4e229304d9806a13f69ca1b8ba4" "site/built/reference.md" "2023-03-27"
-"learners/setup.md" "4b105b62aea8d99c942f885e2d3ac193" "site/built/setup.md" "2023-03-27"
+"learners/setup.md" "a10e6e6c83a7a83f18782415be008122" "site/built/setup.md" "2023-03-27"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2023-03-27"
 "renv/profiles/lesson-requirements/renv.lock" "731012e6b734d05ea9c1d35bdcf57df3" "site/built/renv.lock" "2023-03-27"

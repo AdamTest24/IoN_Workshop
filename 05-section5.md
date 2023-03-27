@@ -154,7 +154,7 @@ fig.colorbar(f1, ax=ax[0])
 ```
 
 ```{.output}
-<matplotlib.colorbar.Colorbar object at 0x7f3b5c41f610>
+<matplotlib.colorbar.Colorbar object at 0x7f44438bf670>
 ```
 
 ```python
