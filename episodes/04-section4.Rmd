@@ -1,0 +1,196 @@
+---
+title: "Network Neuroscience"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- 
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+-
+-
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Neuron Network
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/sabaferdous/envL2D/bin/python3")
+#use_virtualenv("r-env")
+```
+
+```{python}
+import networkx as nx
+
+from pandas import read_csv
+
+from matplotlib.pyplot import subplots, show 
+```
+
+### The C elegans Neuron Network
+#### Data Import
+
+[Introduction to C elegans neurons](http://www.wormbook.org/chapters/www_celegansintro/celegansintro.html#sec5.4)
+
+[C elegans neurons in the worm atlas](https://www.wormatlas.org/hermaphrodite/nervous/Neuroframeset.html)
+
+Import the connectivity matrix.
+
+```{python}
+data = read_csv('data/celegans131matrix_50.csv', header=None, dtype = "int")
+
+neurons = data.to_numpy()
+
+print(len(neurons))
+```
+
+```{python}
+fig, ax = subplots()
+
+ax.imshow(neurons);
+
+show()
+```
+
+Import the labels and convert the resulting dataframe into a dictionary. The function `to_dict` wraps the dictionary within a dictionary and therefore indexing is used to access the 'inner' dict.
+
+```{python}
+neuron_Names = read_csv('data/celegans131labels_50.csv', header=None)
+
+neuronNames = neuron_Names.to_dict()
+
+neuronLabels = neuronNames[0]
+
+print(neuronLabels)
+```
+
+### Graph Object and Network Display
+The connectivity matrix can be converted to a Networkx graph.
+
+```{python}
+neuronGraph  = nx.from_numpy_matrix(neurons, 
+                                    create_using=nx.DiGraph)   
+
+neuronLayout = nx.random_layout(neuronGraph, seed=12)
+
+nx.draw_networkx(neuronGraph, neuronLayout, 
+        node_size=1000,
+        labels=neuronLabels)
+        
+```
+
+View the degrees:
+
+```{python}
+fig, ax = subplots()
+
+ax.plot(dict(neuronGraph.degree).values(), '-o');
+ax.set_xlabel('Index');
+ax.set_ylabel('Degree');
+
+show()
+```
+
+The network displayed in circular layout:
+
+```{python}
+neuronGraph  = nx.from_numpy_matrix(neurons, 
+                                    create_using=nx.DiGraph)   
+
+neuronLayout = nx.circular_layout(neuronGraph)
+
+nx.draw_networkx(neuronGraph, neuronLayout, 
+        node_size=1000,
+        labels=neuronLabels)
+        
+show()        
+
+```
+
+Find node indices:
+The two BAG nodes 'BAGR' and 'BAGL' of the display (about 4 o'clock).
+
+```{python}
+for index, name in enumerate(neuronLabels.values()):
+    
+    if 'BAG' in name:
+        
+        print(neuronLabels[index], index)
+```
+
+## Anatomical Mapping
+
+File 'celegans131positions_50.csv' contains information on how the nodes relate to each other in 2-D space. We can include this information to replace the layout.
+
+```{python}
+neuronPos = read_csv('data/celegans131positions_50.csv', header=None)
+
+neuronPos.items
+```
+
+```{python}
+nx.draw_networkx(neuronGraph, neuronPos.values,
+        node_size=1000,
+        labels=neuronLabels)
+show()
+```
+
+
+```{python}
+new_pos = neuronPos.copy()
+new_pos.values[:, 0] = -1*neuronPos.values[:, 0]
+
+nx.draw_networkx(neuronGraph, new_pos.values,
+        node_size=1000,
+        labels=neuronLabels)
+show()        
+```
+
+The two BAG nodes to the right of the display are the [sensory neurons used to monitor oxygen and carbon dioxide](https://www.wormatlas.org/neurons/Individual%20Neurons/BAGframeset.html).
+
+Here is some background:
+[BAG genes, functions and connections](http://wormweb.org/neuralnet#c=BAG&m=1)
+
+The graph display is in Matplotlib and can be handled as such. E.g. for possible Node shapes see:
+https://matplotlib.org/stable/api/markers_api.html#module-matplotlib.markers. 
+
+If you have a multi-panel figure, specify the axes for the network with keyword argument `ax`:
+
+```{python}
+fig, ax = subplots(figsize=(14, 8), ncols=2)
+
+nx.draw_networkx(neuronGraph, neuronLayout, 
+        node_size=1000,
+        labels=neuronLabels,
+        ax=ax[0])
+
+nx.draw_networkx(neuronGraph, neuronPos.values,
+        node_shape='H',
+        node_color='tomato',
+        node_size=1300,
+        labels=neuronLabels,
+        ax=ax[1])
+
+ax[0].set_title('Circular view of C elegans network');
+ax[1].set_title('Anatomical view of C elegans network');
+
+show()
+```
+
+:::::::::::::::::::::::::::::::::::::keypoints 
+
+-
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+[r-markdown]: https://rmarkdown.rstudio.com/

@@ -1,0 +1,250 @@
+---
+title: "Basic Python"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- 
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+-
+-
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Arrays
+
+### List
+
+We can use variables to store individual data in Python. However, in data science we often need to access multiple values to perform operations. In such occasions, defining a variable for every single value is tedious. Instead, we use arrays.
+
+Arrays are variables that hold any number of values. Python provides 3 types of built-in arrays: ```list```, ```tuple```, and ```set```. There are a several common features amongst all arrays in Python; however, each type of array enjoys its own range of unique features that facilitate specific operations. 
+
+```list``` is the most frequently used type of arrays in Python. It is therefore important to understand how it works.
+
+The easiest way to imagine how a ```list``` works is to think of it as a table that can have any number of rows. This is akin to a spreadsheet with one column.
+
+Here is how to create a list using square brackets.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/sabaferdous/envL2D/bin/python3")
+#use_virtualenv("r-env")
+```
+
+```{python}
+my_list = [1, 2, 3]
+```
+
+Type the name and execute a cell to see its content.
+
+```{python}
+my_list
+```
+
+To access an item in a list, we use the name of the list, followed by square brackets. Inside the brackets we provide the index of the item requested. In Python, indices start from 0!
+
+
+```{python}
+my_list[2]
+```
+
+The last item in an array is referred to with index `-1`
+
+```{python}
+my_list[-1]
+```
+
+If the index refers to a non-existing item, an error will ne "thrown" (in Python speak).
+
+```{python}
+my_list[3]
+```
+
+All items will be shown with the colon `:`
+```{python}
+my_list[:]
+```
+
+Get segments of slices using index values to the left or right of the colon. Left is incliding, right excludsing the item with the index specified. 
+
+
+```{python}
+my_list[:2]
+```
+
+```{python}
+my_list[1:]
+```
+If you want to find index of a particular number: 
+
+```{python}
+my_list.index(3)
+```
+
+Get the number of items in a list with the function `len`
+
+Arguments of functions are provided in round parenthesis.
+
+```{python}
+no_items = len(my_list)
+
+no_items
+```
+
+:::::::::::::: callout
+## Note
+
+'list' as a so-called mutable type of array. it means that it is possible to change their content. In contrast, if you create an array with round parenthesis, it is an immutable type, called `tuple`. This cannot be changed it its current location in memory.
+::::::::::::::
+
+More items can also be added in a list using `append` function.
+
+```{python}
+my_list.append(4)
+
+my_list
+```
+
+
+```{python}
+my_list.append('Something')
+
+my_list
+```
+
+```{python}
+my_list[-1]
+```
+
+Similary, items can also be deleted by using `remove` function.
+
+```{python}
+my_list.remove('Something')
+
+my_list
+```
+
+## Numpy Arrays
+
+### Problem with List
+
+Check the results of executing the following code:
+
+```{python}
+my_list = [1, 2, 3]
+
+print(my_list)
+print(my_list*2)
+```
+
+One might expect each item in the list to be squared. Instead, the number of items is doubled.
+
+or: 
+
+```{python}
+print(my_list)
+print(my_list + 10)
+```
+
+Here, One might expect 10 to be added to each item in the list. Instead, an error is thrown. This, and other features of `list` are not intuitive.
+
+In data science and machine learning, we therefore predominantly use `Numpy` arrays.
+
+### Convert List to Numpy Array
+
+First we import a function from the [Numpy library](https://numpy.org):
+
+```{python}
+from numpy import array
+```
+
+```{python}
+my_np_array = array(my_list)
+
+my_np_array
+```
+
+This is more intuitive:
+
+```{python}
+print(my_np_array)
+print(my_np_array*2)
+```
+
+Similarly:
+
+```{python}
+print(my_np_array)
+print(my_np_array + 10)
+```
+
+To get the maximum and the index of the maximum in the array:
+
+```{python}
+my_np_array.max()
+```
+
+```{python}
+my_np_array.argmax()
+```
+
+Indexing is with square brackets, as for `list` and `tuple`.
+
+Read here about `Numpy` arrays:
+
+https://www.nature.com/articles/s41586-020-2649-2
+
+## Iterations
+
+### Iteration with a For Loop
+
+Let us create a `list` first and then iterate through it.
+
+```{python}
+my_list = [1, 22, 333, 4444, 55555]
+
+my_list
+```
+
+Perform a set of operations on each item of the list. As an example, we want the item printed on the screen, using `print`.
+
+```{python}
+for number in my_list:
+    
+    print(number)
+```
+
+To directly get the indices in a For Loop, use enumerate. It provides first the index, then the value of an item.
+
+```{python}
+for index, item in enumerate(my_list):
+    
+    print('Index:', index, '    Item:', item)
+```
+
+If you want to print the position of items in the list, remember to add `1` in the index and array start from index `0`.
+
+```{python}
+for index, item in enumerate(my_list):
+    
+    print('Position:', index+1, '    Item:', item)
+```
+
+
+:::::::::::::::::::::::::::::::::::::keypoints 
+
+-
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+[r-markdown]: https://rmarkdown.rstudio.com/

@@ -8,10 +8,14 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-carpentry: 'incubator'
+# carpentry: 'incubator'
+
+carpentry: l2d
+varnish: LearnToDiscover/varnish
+sandpaper: LearnToDiscover/sandpaper@l2d
 
 # Overall title for pages.
-title: 'Lesson Title' # FIXME
+title: 'Python for Neurology' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: ~ # FIXME
@@ -21,7 +25,7 @@ keywords: 'software, data, lesson, The Carpentries' # FIXME
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha' # FIXME
+life_cycle: 'stable' # FIXME
 
 # License of the lesson
 license: 'CC-BY 4.0'
@@ -59,8 +63,11 @@ contact: 'team@carpentries.org' # FIXME
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.md
-
+  - 01-section1.Rmd
+  - 02-section2.Rmd
+  - 03-section3.Rmd
+  - 04-section4.Rmd
+  - 05-section5.Rmd
 # Information for Learners
 learners: 
 

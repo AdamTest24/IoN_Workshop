@@ -1,0 +1,244 @@
+---
+title: "Neuro Images Clustering"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- 
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+-
+-
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Installing and using Nibabel Python Library
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/sabaferdous/envL2D/bin/python3")
+#use_virtualenv("r-env")
+```
+
+```{python}
+from numpy import concatenate, zeros
+
+from matplotlib.pyplot import subplots, tight_layout, show
+
+import nibabel as nib
+```
+
+### Load images and get data
+
+```{python}
+img_nibabel = nib.load("data/T1_mask.nii")
+
+type(img_nibabel)
+```
+
+```{python}
+meta_info = img_nibabel.header
+
+print(meta_info)
+```
+
+```{python}
+print(meta_info.get_xyzt_units())
+```
+
+```{python}
+img1 = img_nibabel.get_fdata()
+
+print(type(img1), img1.shape)
+```
+
+```{python}
+img_nibabel = nib.load("data/b0_mask.nii")
+
+img2 = img_nibabel.get_fdata()
+```
+
+```{python}
+img1.shape
+```
+
+
+
+### plotting Images
+
+```{python}
+img_slice = 30
+```
+
+```{python}
+fig, ax = subplots(ncols=2, figsize=(15, 5))
+
+f1 = ax[0].imshow(img1[:, :, img_slice], cmap="gray")
+f2 = ax[1].imshow(img2[:, :, img_slice], cmap="gray")
+
+fig.colorbar(f1, ax=ax[0])
+fig.colorbar(f2, ax=ax[1]);
+
+ax[0].set_xlabel('T1 Image', fontsize=16);
+ax[1].set_xlabel('B0 Image', fontsize=16);
+
+show()
+```
+
+## Data pre-processing
+```{python}
+img1_slice = img1[:, :, img_slice]
+img2_slice = img2[:, :, img_slice]
+```
+### Remove zeros
+```{python}
+fig, ax = subplots(ncols=2, figsize=(20, 5))
+
+ax[0].hist(img1_slice.flatten(), bins=50)
+ax[1].hist(img2_slice.flatten(), bins=50);
+
+show()
+```
+
+```{python}
+mask = (img1_slice>0) & (img2_slice>0) 
+
+img1_nz = img1_slice[mask]
+img2_nz = img2_slice[mask]
+
+fig, ax = subplots(nrows=1, ncols=2, figsize=(20, 5))
+
+ax[0].hist(img1_nz, bins=50)
+ax[1].hist(img2_nz, bins=50);
+
+show()
+```
+
+### Scaling
+
+Standard Scaler: removing the mean and scaling to unit variance
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+img1_scaled = scaler.fit_transform(img1_nz.reshape(-1, 1))
+img2_scaled = scaler.fit_transform(img2_nz.reshape(-1, 1))
+```
+
+```{python}
+img1_scaled.shape
+
+```
+
+### Visualise and Concatenate
+
+Seaborn: https://seaborn.pydata.org
+
+c.f. pair grid example
+https://seaborn.pydata.org/examples/pair_grid_with_kde.html
+
+kdeplot documentation
+https://seaborn.pydata.org/generated/seaborn.kdeplot.html
+
+```{python}
+fig, ax = subplots(1, 3, figsize=(20, 6))
+
+# Scatter plot
+ax[0].scatter(img1_nz, img2_nz)
+
+# 2D Histogram
+ax[1].hist2d(img1_nz, img2_nz, bins=50, vmax=10);
+
+from seaborn import kdeplot
+
+# Density Plot
+kdeplot(x=img1_nz, y=img2_nz, ax=ax[2]);
+show()
+```
+
+### Scaled Images
+
+```{python}
+fig, ax = subplots(1, 3, figsize=(20, 6))
+
+# Scatter plot
+ax[0].scatter(img1_scaled[:,0], img2_scaled[:,0])
+
+# 2D Histogram
+ax[1].hist2d(img1_scaled[:,0], img2_scaled[:,0], bins=50, vmax=10);
+
+from seaborn import kdeplot
+
+# Density Plot
+kdeplot(x=img1_scaled[:,0], y=img2_scaled[:,0], ax=ax[2]);
+show()
+```
+
+```{python}
+all_img_scaled = concatenate([img1_scaled, img2_scaled], axis=1)
+
+all_img_scaled.shape
+```
+## Segmenting images with Gaussian Mixtures
+
+### GMM clustering
+
+```{python}
+from sklearn.mixture import GaussianMixture
+```
+
+```{python}
+n_components = 3
+
+RANDOM_STATE = 12345
+
+gmm = GaussianMixture(n_components=n_components, 
+                      random_state=RANDOM_STATE)
+
+all_img_labels = gmm.fit_predict(all_img_scaled)
+
+all_img_labels[0]
+```
+
+```{python}
+fig, ax = subplots(figsize=(8, 8))
+
+ax.scatter(img1_nz, img2_nz, c=all_img_labels, s=100)
+
+ax.set_xlabel('Image 1', fontsize=16)
+ax.set_ylabel('Image 2', fontsize=16);
+
+show()
+```
+
+```{python}
+all_img_labels_mapped = zeros(img1_slice.shape)
+
+all_img_labels_mapped[mask] = all_img_labels
+```
+
+```{python}
+fig, ax = subplots(figsize=(20, 10))
+
+ax.imshow(all_img_labels_mapped);
+
+show()
+```
+
+:::::::::::::::::::::::::::::::::::::keypoints 
+
+-
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+[r-markdown]: https://rmarkdown.rstudio.com/

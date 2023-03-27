@@ -1,0 +1,225 @@
+---
+title: "Neuro-Image Handling"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- 
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+-
+-
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Image Handling 
+
+```{python}
+from matplotlib.pyplot import subplots, show
+
+from matplotlib.image import imread
+```
+
+```{python}
+image = imread('fig/Cerebellum.jpg')
+
+fig, ax = subplots()
+
+ax.imshow(image);
+
+show()
+```
+
+```{python}
+image.shape
+```
+
+```{python}
+image[0, 0]
+```
+
+```{python}
+fig, ax = subplots()
+
+ax.imshow(image[50:70, 60:100]);
+
+ax.set_xticklabels(());
+ax.set_yticklabels(());
+
+show()
+```
+
+```{python}
+fig, ax = subplots()
+
+ax.imshow(image[:,:, 2], cmap='gray');
+
+ax.set_xticklabels(());
+ax.set_yticklabels(());
+
+show()
+```
+
+```{python}
+layer = 2
+
+fig, ax = subplots()
+
+ax.hist(image[:, :, layer][image[:, :, layer] < 255].ravel(), bins=500);
+
+show()
+```
+
+```{python}
+image.size
+```
+
+```{python}
+from PIL import Image
+
+image = Image.open('fig/Cerebellum.jpg')
+
+fig, ax = subplots()
+
+ax.imshow(image);
+
+show()
+```
+
+```{python}
+type(image)
+```
+
+
+```{python}
+image.show()
+```
+
+```{python}
+image.entropy()
+```
+
+```{python}
+image.rotate(-90, expand=True)
+
+```
+
+## Image Masking
+
+```{python}
+from matplotlib.image import imread
+from matplotlib.pyplot import subplots, show
+```
+
+```{python}
+image = imread('fig/rose.jpg')
+
+fig, ax = subplots()
+
+ax.imshow(image);
+
+show()
+```
+
+### Transpose Image
+```{python}
+image.shape
+```
+
+```{python}
+image_t = image.transpose((1, 0, 2))
+
+fig, ax = subplots()
+
+ax.imshow(image_t)
+
+show()
+
+```
+
+### Only red Component
+
+```{python}
+fig, ax = subplots()
+
+ax.imshow(image_t[:, :, 0]);
+
+show()
+```
+
+### Histogram of Red Component
+
+```{python}
+fig, ax, = subplots()
+
+ax.hist(image_t[:, :, 0].ravel(), bins=500);
+
+show()
+```
+
+### Masking the Red Component
+```{python}
+threshold = 90
+
+mask = image_t[:, :, 0] < threshold
+
+image_masked = image_t[:, :, 0] * mask
+
+fig, ax = subplots(ncols=3)
+
+ax[0].imshow(image_t[:, :, 0], cmap='gray')
+ax[1].imshow(mask, cmap='gray')
+ax[2].imshow(image_masked, cmap='gray');
+
+fig.tight_layout()
+
+show()
+```
+
+### False Colour
+```{python}
+fig, ax = subplots()
+
+ax.imshow(image_masked);
+
+show()
+```
+
+### Apply mask to all layers
+Choose grey value for background
+
+```{python}
+image_new = image_t.copy()
+
+grey_value = 100
+
+image_new[mask, :] = grey_value
+
+
+fig, ax = subplots()
+
+ax.imshow(image_new);
+
+show()
+```
+
+```{python}
+fig.savefig('fig/rose_masked.png', format='png')
+```
+
+
+:::::::::::::::::::::::::::::::::::::keypoints 
+
+-
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+[r-markdown]: https://rmarkdown.rstudio.com/

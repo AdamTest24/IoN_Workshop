@@ -1,0 +1,244 @@
+---
+title: "Time Series (EEG)"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- 
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+-
+-
+-
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Plotting NumPy series
+
+```{python}
+from pandas import read_csv
+
+from matplotlib.pyplot import subplots, show
+
+from numpy import arange, linspace, zeros
+```
+
+```{python}
+df = read_csv("data/EEG_background.txt", delim_whitespace=True) 
+
+df.head()
+```
+
+```{python}
+df.shape
+```
+
+### Numpy Plot
+
+Time in the rows, sensors in the columns
+```{python}
+sr = 256          # Sampling rate: 1 / seconds
+
+duration = 5      # seconds
+
+df_np = df.to_numpy()
+
+data = df_np[:duration*sr, :19]
+
+data.shape
+```
+
+```{python}
+def plot_series(data, sr):
+    '''
+    Time series plot of multiple time series
+    Data are normalised to mean=0 and var=1 
+    
+    data: nxm numpy array. Rows are time points, columns are channels
+    sr: sampling rate, same time units as period
+    '''
+    from numpy import flip
+    
+    samples = data.shape[0]
+    sensors = data.shape[1]
+    
+    period = samples // sr
+
+    time = linspace(0, period, period*sr)
+
+    offset = 5 # for mean=0 and var=1 normalised data
+
+    # Calculate means and standard deviations of all columns
+    means = data.mean(axis=0)
+    stds = data.std(axis=0)
+
+    # Plot each series with an offset of 2 times the standard deviations
+    fig, ax = subplots(figsize=(7, 8))
+
+    ax.plot(time, (data - means)/stds + offset*arange(sensors-1,-1,-1));
+
+    ax.plot(time, zeros((samples, sensors)) + offset*arange(sensors-1,-1,-1),'--',color='gray');
+    
+    ax.set(xlabel='Time')
+    ax.set_yticks(offset*arange(sensors))
+    ax.set_yticklabels(flip(arange(sensors)+1))
+
+```
+
+```{python}
+plot_series(data, sr);
+show()
+```
+
+### How to create a function
+
+```{python}
+def my_plot1(data):
+    
+    fig, ax = subplots()
+        
+    ax.plot(data)
+   
+```
+
+```{python}
+my_plot1(data)
+show()
+```
+
+```{python}
+def my_plot2(data, factor):
+    '''
+    this is just a test
+    '''
+    
+    columns = data.shape[1]
+    
+    offset = arange(columns)
+    
+    fig, ax = subplots()
+        
+    ax.plot(data + offset*factor)
+```
+
+```{python}
+my_plot2(data, 100)
+show()
+```
+
+## Fourier
+
+```{python}
+from pandas import read_csv
+from matplotlib.pyplot import subplots, yticks, legend, rcParams, show
+from numpy import arange, linspace, zeros
+
+from scipy.fftpack import fft
+```
+
+```{python}
+df = read_csv("data/EEG_absence.txt", delim_whitespace=True) 
+
+sr = 256
+duration = 5
+
+df_np = df.to_numpy()
+
+data = df_np[:duration*sr, :2]
+
+df.head()
+```
+
+```{python}
+data.shape
+```
+
+```{python}
+def plot_series(data, sr):
+    '''
+    Time series plot of multiple time series
+    Data are normalised to mean=0 and var=1 
+    
+    data: nxm numpy array. Rows are time points, columns are channels
+    sr: sampling rate, same time units as period
+    
+    leg: Legend of figure, uses column index
+    '''
+
+    samples = data.shape[0]
+    sensors = data.shape[1]
+    
+    period = samples // sr
+
+    time = linspace(0, period, period*sr)
+
+    offset = 5 # for mean=0 and var=1 normalised data
+
+    # Calculate means and standard deviations of all columns
+    means = data.mean(axis=0)
+    stds = data.std(axis=0)
+
+    # Plot each series with an offset of 2 times the standard deviations
+    fig, ax = subplots(figsize=(7, 5))
+
+    ax.plot(time, (data - means)/stds + offset*arange(sensors-1,-1,-1));
+
+    ax.plot(time, zeros((samples, sensors)) + offset*arange(sensors-1,-1,-1),'--',color='gray');
+    
+    yticks([]);
+       
+    ax.set(xlabel='Time')
+    
+```
+
+```{python}
+plot_series(data[:, :2], sr)
+show()
+```
+
+```{python}
+data_fft = fft(data, axis=0)
+
+data_fft.shape
+
+```
+
+```{python}
+rows = data.shape[0]
+freqs  = (sr/2)*linspace(0, 1, rows//2)
+amplitude = (2.0 / rows) * abs(data_fft[:rows//2, :])
+
+fig, ax = subplots()
+
+ax.plot(freqs, amplitude);
+
+show()
+```
+
+```{python}
+fig, ax = subplots()
+
+ax.plot(freqs, amplitude);
+
+ax.set_xlim(0, 10);
+ax.set_xlabel('Frequency (Hz)', fontsize=20)
+ax.set_ylabel('Amplitude (abs)', fontsize=20);
+
+show()
+```
+
+
+:::::::::::::::::::::::::::::::::::::keypoints 
+
+-
+-
+-
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+[r-markdown]: https://rmarkdown.rstudio.com/
