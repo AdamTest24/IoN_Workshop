@@ -26,13 +26,7 @@ exercises: 2
 
 ```python
 import networkx as nx
-```
 
-```{.error}
-Error: ModuleNotFoundError: No module named 'networkx'
-```
-
-```python
 from pandas import read_csv
 
 from matplotlib.pyplot import subplots, show 
@@ -95,29 +89,13 @@ The connectivity matrix can be converted to a Networkx graph.
 ```python
 neuronGraph  = nx.from_numpy_matrix(neurons, 
                                     create_using=nx.DiGraph)   
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 neuronLayout = nx.random_layout(neuronGraph, seed=12)
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 nx.draw_networkx(neuronGraph, neuronLayout, 
         node_size=1000,
         labels=neuronLabels)
         
-```
-
-```{.error}
-Error: NameError: name 'nx' is not defined
 ```
 
 View the degrees:
@@ -127,13 +105,6 @@ View the degrees:
 fig, ax = subplots()
 
 ax.plot(dict(neuronGraph.degree).values(), '-o');
-```
-
-```{.error}
-Error: NameError: name 'neuronGraph' is not defined
-```
-
-```python
 ax.set_xlabel('Index');
 ax.set_ylabel('Degree');
 
@@ -148,32 +119,13 @@ The network displayed in circular layout:
 ```python
 neuronGraph  = nx.from_numpy_matrix(neurons, 
                                     create_using=nx.DiGraph)   
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 neuronLayout = nx.circular_layout(neuronGraph)
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 nx.draw_networkx(neuronGraph, neuronLayout, 
         node_size=1000,
         labels=neuronLabels)
         
-```
-
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 show()        
 ```
 
@@ -266,13 +218,6 @@ neuronPos.items
 nx.draw_networkx(neuronGraph, neuronPos.values,
         node_size=1000,
         labels=neuronLabels)
-```
-
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 show()
 ```
 
@@ -287,13 +232,6 @@ new_pos.values[:, 0] = -1*neuronPos.values[:, 0]
 nx.draw_networkx(neuronGraph, new_pos.values,
         node_size=1000,
         labels=neuronLabels)
-```
-
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 show()        
 ```
 
@@ -317,26 +255,14 @@ nx.draw_networkx(neuronGraph, neuronLayout,
         node_size=1000,
         labels=neuronLabels,
         ax=ax[0])
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 nx.draw_networkx(neuronGraph, neuronPos.values,
         node_shape='H',
         node_color='tomato',
         node_size=1300,
         labels=neuronLabels,
         ax=ax[1])
-```
 
-```{.error}
-Error: NameError: name 'nx' is not defined
-```
-
-```python
 ax[0].set_title('Circular view of C elegans network');
 ax[1].set_title('Anatomical view of C elegans network');
 

@@ -6,18 +6,24 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- 
--
--
+- How are arrays useful in Python?
+- Why do we need Numpy arrays?
+- How can array data be iterated?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
--
--
--
+- Understanding arrays in Python
+- Explaining the use of Numpy arrays
+- Iterations on arrays
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::: callout
+## Note
+Due to time restriction, we will only cover the basic Python concepts which are needed for the rest of session. However, if you want to learn more on Python programming, please refer to the Carpenteries full day course on [Programming in Python](https://swcarpentry.github.io/python-novice-gapminder/index.html).
+
+::::::::::::::::::::
 
 ## Arrays
 
@@ -399,9 +405,9 @@ Position: 5     Item: 55555
 
 :::::::::::::::::::::::::::::::::::::keypoints 
 
--
--
--
+- `list` is one of the type of arrays (`list`, `tuple` and `set`).
+- `NumPy` is a library for the Python programming language, adding support for large, multi-dimensional arrays and matrices.
+- Repetitive execution of the same block of code over and over is referred to as `iteration`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 [r-markdown]: https://rmarkdown.rstudio.com/
