@@ -6,20 +6,30 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- 
--
--
+- How an image is read in Python?
+- What does masking do?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
--
--
--
+- Explaining data in images
+- Understanding image masking 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Image Handling 
+
+### Reading and Processing Images
+In biology, we often deal with images, for example from microscopy and different medical imaging modalities. In many cases, we wish to extract some quantitative information from these images. The focus of this session is to read and process images in Python. This includes:
+
+- Working with 2-dimensional images
+- Creating and applying binary image masks
+- Working with 2-dimensional colour images, and interpreting colour channels
+
+First, we want to read in an image. For this part of the lesson, we use a 2D image of brain part,Cerebellum, as an example. We use Matplotlib’s `image` module, from which we import `imread` to store the image in a variable called image. The function `imread` can interpret many different image formats, including jpg, png and tif images.
+
+
 
 
 ```python
@@ -50,6 +60,8 @@ image.shape
 (154, 327, 3)
 ```
 
+This tells us that our image is composed of 154 by 327 data units, or pixels as we are dealing with an image. It is equivalent to the image resolution. The array has three dimensions.  
+
 
 ```python
 image[0, 0]
@@ -58,6 +70,10 @@ image[0, 0]
 ```{.output}
 array([255, 255, 255], dtype=uint8)
 ```
+
+The color intensities go up to 255. This is because RGB (red, green and blue) colours are defined within the range 0-255. 
+
+Let us now use matplotlib.pyplot’s imshow function to plot the section of image to see what it looks like. The x and y coordinates are chosen to specify section of the image. 
 
 
 ```python
@@ -73,6 +89,8 @@ show()
 
 <img src="fig/02-section2-rendered-unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" />
 
+Each square is a pixel and it has one value. So how exactly are the pixel values assigned? By the numbers stored in the Numpy array, image.
+
 
 ```python
 fig, ax = subplots()
@@ -86,6 +104,15 @@ show()
 ```
 
 <img src="fig/02-section2-rendered-unnamed-chunk-6-5.png" width="672" style="display: block; margin: auto;" />
+
+Here we assigned a grey colour map.
+
+
+Now that we know that the images are composed of a set of intensities that are just numbers in a Numpy array, we can start using these numbers to process our image.
+
+As a first approach, we can plot a histogram of the original image intensities. We use the `.ravel()` method to turn the original 154 x 327 array into a one-dimensional array with 503,58 values. This rearrangement allows the inclusion of an image as a single column in a matrix or dataframe!
+
+The histogram plot shows how many of the intensities are found in one layer of this image:
 
 
 ```python
@@ -154,10 +181,11 @@ image.rotate(-90, expand=True)
 ```
 
 ```{.output}
-<PIL.Image.Image image mode=RGB size=154x327 at 0x7FD1CFE09090>
+<PIL.Image.Image image mode=RGB size=154x327 at 0x7F9E5FF36200>
 ```
 
 ## Image Masking
+
 
 
 ```python
@@ -290,9 +318,9 @@ fig.savefig('fig/rose_masked.png', format='png')
 
 :::::::::::::::::::::::::::::::::::::keypoints 
 
--
--
--
+- `imread` function is used to read images.
+- `ravel` function flattens a multi-dimentional array into a single array.
+- Image masking help in identifying objects based on colur intensities.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 [r-markdown]: https://rmarkdown.rstudio.com/

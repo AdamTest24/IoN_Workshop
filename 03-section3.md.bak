@@ -21,6 +21,10 @@ exercises: 2
 
 ## Plotting NumPy series
 
+As an example, let us import a time series data. This represent human electroencephalogram (EEG) as recorded during normal background activity.
+
+
+
 
 ```python
 from pandas import read_csv
@@ -48,6 +52,8 @@ df.head()
 [5 rows x 28 columns]
 ```
 
+To see the names of the channels (or recording sensors) we can use `head` function.
+
 
 ```python
 df.shape
@@ -58,6 +64,7 @@ df.shape
 ```
 
 ### Numpy Plot
+The data in the above dataframe df is converted to Numpy arrays, here called df_np. 
 
 Time in the rows, sensors in the columns
 
@@ -68,7 +75,7 @@ duration = 5      # seconds
 
 df_np = df.to_numpy()
 
-data = df_np[:duration*sr, :19]
+data = df_np[:duration*sr, :19] ## SF Comment, needs to explain this above
 
 data.shape
 ```
@@ -77,6 +84,11 @@ data.shape
 (1280, 19)
 ```
 
+::::::::::::::::: discussion
+
+## Python Function
+
+Please execute the following function definition before proceeding. The function code takes data and creates a plot of all columns as time series, one above the other. When you execute the function code nothing happens. Similar to the import, running a function code will only activate it and make it available for later use.
 
 ```python
 def plot_series(data, sr):
@@ -113,6 +125,8 @@ def plot_series(data, sr):
     ax.set_yticks(offset*arange(sensors))
     ax.set_yticklabels(flip(arange(sensors)+1))
 ```
+:::::::::::::::::
+
 
 
 ```python
@@ -122,6 +136,7 @@ show()
 
 <img src="fig/03-section3-rendered-unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
 
+:::::::::::::::: discussion 
 ### How to create a function
 
 
@@ -165,8 +180,17 @@ show()
 ```
 
 <img src="fig/03-section3-rendered-unnamed-chunk-10-5.png" width="672" style="display: block; margin: auto;" />
+::::::::::::::::
 
-## Fourier
+## FourierSpectrum
+<p>
+The Fourier spectrum decomposes the time series into a sum of sine waves. The spectrum gives the coefficients of each of the sine wave components. The coefficients are directly related to the amplitudes needed to optimally fit the sum of all sine waves to recreate the original data.
+</p>
+<p>
+However, the assumption behind the Fourier transform is that the data are provided as in infinitely long stationary time series. These assumptions are not fulfilled as the data are finite and stationarity of a biological system can typically not be guaranteed. Thus, interpretation needs to be cautious.
+</p>
+
+We import the Fourier transform function `fft` from scipy.fftpack and can use it to transform all columns at the same time.
 
 
 ```python
@@ -175,10 +199,6 @@ from matplotlib.pyplot import subplots, yticks, legend, rcParams, show
 from numpy import arange, linspace, zeros
 
 from scipy.fftpack import fft
-```
-
-```{.error}
-Error: ModuleNotFoundError: No module named 'scipy'
 ```
 
 
@@ -190,7 +210,7 @@ duration = 5
 
 df_np = df.to_numpy()
 
-data = df_np[:duration*sr, :2]
+data = df_np[:duration*sr, :2] ## SF, needs explanation
 
 df.head()
 ```
@@ -265,18 +285,12 @@ show()
 
 ```python
 data_fft = fft(data, axis=0)
-```
 
-```{.error}
-Error: NameError: name 'fft' is not defined
-```
-
-```python
 data_fft.shape
 ```
 
-```{.error}
-Error: NameError: name 'data_fft' is not defined
+```{.output}
+(1280, 2)
 ```
 
 
@@ -284,23 +298,11 @@ Error: NameError: name 'data_fft' is not defined
 rows = data.shape[0]
 freqs  = (sr/2)*linspace(0, 1, rows//2)
 amplitude = (2.0 / rows) * abs(data_fft[:rows//2, :])
-```
 
-```{.error}
-Error: NameError: name 'data_fft' is not defined
-```
-
-```python
 fig, ax = subplots()
 
 ax.plot(freqs, amplitude);
-```
 
-```{.error}
-Error: NameError: name 'amplitude' is not defined
-```
-
-```python
 show()
 ```
 
@@ -311,13 +313,7 @@ show()
 fig, ax = subplots()
 
 ax.plot(freqs, amplitude);
-```
 
-```{.error}
-Error: NameError: name 'amplitude' is not defined
-```
-
-```python
 ax.set_xlim(0, 10);
 ax.set_xlabel('Frequency (Hz)', fontsize=20)
 ax.set_ylabel('Amplitude (abs)', fontsize=20);

@@ -247,6 +247,7 @@ any links that you are not going to use.
  1. <a href="01-section1.html">Basic Python</a>
 </td>
 <td>
+How are arrays useful in Python?<br>Why do we need Numpy arrays?<br>How can array data be iterated?
 </td>
 </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 12m
@@ -255,6 +256,7 @@ any links that you are not going to use.
  2. <a href="02-section2.html">Neuro-Image Handling</a>
 </td>
 <td>
+How an image is read in Python?<br>What does masking do?
 </td>
 </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 24m
@@ -311,7 +313,7 @@ any links that you are not going to use.
 </div>
 <section id="data-sets"><h2 class="section-heading">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a>
 </h2>
-<hr class="half-width"><p>Download the <a href="../data_files.zip">data zip file</a> and unzip it to your Desktop</p>
+<hr class="half-width"><p>Download the <a href="../data_files.zip">data zip file</a> and unzip it to your Desktop.</p>
 </section><section id="software-setup"><h2 class="section-heading">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
 </h2>
 <hr class="half-width"><div id="discussion1" class="callout discussion">
@@ -378,9 +380,9 @@ In Python, the use of virtual environments allows you to avoid installing Python
 </ol><pre><code>conda create -n ion_workshop python=3.9 pip</code></pre>
 <p>By running this command a new environment will be installed within your home directory.</p>
 <ol start="2" style="list-style-type: decimal"><li>The environment can be activated as:</li>
-</ol><pre><code>conda activate envL2D </code></pre>
+</ol><pre><code>conda activate ion_workshop </code></pre>
 <ol start="3" style="list-style-type: decimal"><li>In order to install the packages in your environment, write these commands on your terminal.</li>
-</ol><pre><code>pip install numpy, matplotlib, pandas
+</ol><pre><code>pip install numpy, matplotlib, pandas, scipy
 
 pip install networkx==2.8.8
 
