@@ -13,7 +13,7 @@ Before attempting today's sessions, you will need to have installed the followin
 
 ## Data Sets
 
-Download the [data zip file](data_files.zip) and unzip it to your Desktop
+Download the [data zip file](data_files.zip) and unzip it to your Desktop.
 
 ## Software Setup
 
@@ -68,12 +68,12 @@ By running this command a new environment will be installed within your home dir
 2. The environment can be activated as:
 
 ```
-conda activate envL2D 
+conda activate ion_workshop 
 ```
 3. In order to install the packages in your environment, write these commands on your terminal.
 
 ```
-pip install numpy, matplotlib, pandas
+pip install numpy, matplotlib, pandas, scipy
 
 pip install networkx==2.8.8
 

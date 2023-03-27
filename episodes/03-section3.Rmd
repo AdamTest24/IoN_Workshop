@@ -21,6 +21,15 @@ exercises: 2
 
 ## Plotting NumPy series
 
+As an example, let us import a time series data. This represent human electroencephalogram (EEG) as recorded during normal background activity.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+use_python("/Users/sabaferdous/envL2D/bin/python3")
+#use_virtualenv("r-env")
+```
+
 ```{python}
 from pandas import read_csv
 
@@ -35,11 +44,14 @@ df = read_csv("data/EEG_background.txt", delim_whitespace=True)
 df.head()
 ```
 
+To see the names of the channels (or recording sensors) we can use `head` function.
+
 ```{python}
 df.shape
 ```
 
 ### Numpy Plot
+The data in the above dataframe df is converted to Numpy arrays, here called df_np. 
 
 Time in the rows, sensors in the columns
 ```{python}
@@ -49,11 +61,16 @@ duration = 5      # seconds
 
 df_np = df.to_numpy()
 
-data = df_np[:duration*sr, :19]
+data = df_np[:duration*sr, :19] ## SF Comment, needs to explain this above
 
 data.shape
 ```
 
+::::::::::::::::: discussion
+
+## Python Function
+
+Please execute the following function definition before proceeding. The function code takes data and creates a plot of all columns as time series, one above the other. When you execute the function code nothing happens. Similar to the import, running a function code will only activate it and make it available for later use.
 ```{python}
 def plot_series(data, sr):
     '''
@@ -90,12 +107,15 @@ def plot_series(data, sr):
     ax.set_yticklabels(flip(arange(sensors)+1))
 
 ```
+:::::::::::::::::
+
 
 ```{python}
 plot_series(data, sr);
 show()
 ```
 
+:::::::::::::::: discussion 
 ### How to create a function
 
 ```{python}
@@ -131,8 +151,17 @@ def my_plot2(data, factor):
 my_plot2(data, 100)
 show()
 ```
+::::::::::::::::
 
-## Fourier
+## FourierSpectrum
+<p>
+The Fourier spectrum decomposes the time series into a sum of sine waves. The spectrum gives the coefficients of each of the sine wave components. The coefficients are directly related to the amplitudes needed to optimally fit the sum of all sine waves to recreate the original data.
+</p>
+<p>
+However, the assumption behind the Fourier transform is that the data are provided as in infinitely long stationary time series. These assumptions are not fulfilled as the data are finite and stationarity of a biological system can typically not be guaranteed. Thus, interpretation needs to be cautious.
+</p>
+
+We import the Fourier transform function `fft` from scipy.fftpack and can use it to transform all columns at the same time.
 
 ```{python}
 from pandas import read_csv
@@ -150,7 +179,7 @@ duration = 5
 
 df_np = df.to_numpy()
 
-data = df_np[:duration*sr, :2]
+data = df_np[:duration*sr, :2] ## SF, needs explanation
 
 df.head()
 ```

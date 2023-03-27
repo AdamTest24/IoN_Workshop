@@ -1,4 +1,6 @@
 pandas
+networkx==2.8.8
 matplotlib
-sklearn
 jupytext
+nibabel
+scipy
