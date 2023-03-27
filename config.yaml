@@ -64,10 +64,10 @@ contact: 'team@carpentries.org' # FIXME
 # Order of episodes in your lesson
 episodes: 
   - 01-section1.Rmd
-  - 02-section2.Rmd
-  - 03-section3.Rmd
-  - 04-section4.Rmd
-  - 05-section5.Rmd
+  #- 02-section2.Rmd
+  #- 03-section3.Rmd
+  #- 04-section4.Rmd
+  #- 05-section5.Rmd
 # Information for Learners
 learners: 
 
