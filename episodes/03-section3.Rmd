@@ -26,8 +26,8 @@ As an example, let us import a time series data. This represent human electroenc
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
-use_python("/Users/sabaferdous/envL2D/bin/python3")
-#use_virtualenv("r-env")
+#use_python("/Users/sabaferdous/envL2D/bin/python3")
+use_virtualenv("r-env")
 ```
 
 ```{python}
