@@ -32,8 +32,8 @@ First, we want to read in an image. For this part of the lesson, we use a 2D ima
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
-use_python("/Users/sabaferdous/envL2D/bin/python3")
-#use_virtualenv("r-env")
+#use_python("/Users/sabaferdous/envL2D/bin/python3")
+use_virtualenv("r-env")
 ```
 
 ```{python}
