@@ -4,10 +4,12 @@ teaching: 10
 exercises: 2
 ---
 
+[**Download Chapter notebook (ipynb)**](02-section2.ipynb)
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How an image is read in Python?
-- What does masking do?
+- What does masking work?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -20,30 +22,45 @@ exercises: 2
 
 ## Image Handling 
 
-### Reading and Processing Images
+### **Reading and Processing Images**
 In biology, we often deal with images, for example from microscopy and different medical imaging modalities. In many cases, we wish to extract some quantitative information from these images. The focus of this session is to read and process images in Python. This includes:
 
 - Working with 2-dimensional images
 - Creating and applying binary image masks
 - Working with 2-dimensional colour images, and interpreting colour channels
 
-First, we want to read in an image. For this part of the lesson, we use a 2D image of brain part,Cerebellum, as an example. We use Matplotlib’s `image` module, from which we import `imread` to store the image in a variable called image. The function `imread` can interpret many different image formats, including jpg, png and tif images.
+In this notebook, we want to be able to read an image into our Python enviroment, from our computer. 
+
+In order to this, we will use Matplotlib’s image module, from which we will import the function `imread`. This allows us to store the image in a variable, which we will call image. The function `imread` can interpret many different image formats, including jpg, png and tif images.
+
+In order for this notebook to run smoothly, please make sure that "Cerebellum.jpg" is in a subfolder called `figs` in your current folder.  
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
-#use_python("/Users/sabaferdous/envL2D/bin/python3")
-use_virtualenv("r-env")
+use_python("/Users/sabaferdous/envL2D/bin/python3")
+#use_virtualenv("r-env")
 ```
 
 ```{python}
-from matplotlib.pyplot import subplots, show
-
 from matplotlib.image import imread
 ```
 
 ```{python}
 image = imread('fig/Cerebellum.jpg')
+```
+
+Next, we can display the image within the editor. To do this, we import a function called subplots und use `imshow()` to display the image. 
+
+:::::::::::::: callout
+## Note
+Note the semicolon at the end of the call of `ax.imshow(image);` - this suppresses the output, and ensures that only the image is displayed.
+::::::::::::::
+
+### **Display Image**
+
+```{python}
+from matplotlib.pyplot import subplots, show
 
 fig, ax = subplots()
 
@@ -52,19 +69,32 @@ ax.imshow(image);
 show()
 ```
 
+Our image is a colour image. A gray image only needs a single intensity value for each pixel. Typical RGB colour images contain three channels which correspond to red, green and blue (RGB) intensities. The resulting colour is conferred as a result of compositing the intensities of these three channels over the area of a single pixel.
+
+### **Pixels and Pixel Intensities**
+
+To check the number of pixels in our image we use the `shape` function (without any parentheses).
+
 ```{python}
 image.shape
 ```
 
-This tells us that our image is composed of 154 by 327 data units, or pixels as we are dealing with an image. It is equivalent to the image resolution. The array has three dimensions.  
+This shows that the image contains 156 x 327 pixels (horizontal by vertical) organised in three layers. 
+
+The intensities are stored as integers that range between 0 (black or no intensity) to 255 (white or full intensity).
+
+To access the information in a single pixel, we use square brackets containing two values corresponding to the pixel's horizontal and vertical coordinates.
+
+For example, the pixel in the top left corner would be accessed, as follows:
 
 ```{python}
 image[0, 0]
 ```
 
-The color intensities go up to 255. This is because RGB (red, green and blue) colours are defined within the range 0-255. 
+All three values are maximal: i.e. the pixel will appear white.
 
-Let us now use matplotlib.pyplot’s imshow function to plot the section of image to see what it looks like. The x and y coordinates are chosen to specify section of the image. 
+Experiment by plotting a section of the image. This is done by specifying pixel values over a range of positions. For example, in order to see the rectangle defined by pixels 50 to 70 (horizontally) and 60 to 100 (vertically), we can use:
+
 
 ```{python}
 fig, ax = subplots()
@@ -77,182 +107,153 @@ ax.set_yticklabels(());
 show()
 ```
 
-Each square is a pixel and it has one value. So how exactly are the pixel values assigned? By the numbers stored in the Numpy array, image.
+Note that this preserves the original colours of the image. 
+
+A peculiarity of the Matplotlib graphic library is that `imshow` typically uses a default colour map, if none is specified. Thus, we use the keyword `cmap` to specify what colour map to use, if we want to change this. 
+
+Here is how we can see the intensities of a single channel. The colon indicates that all numbers in the range are displayed for x and y coordinates (i.e. the full horizontal and vertical dimensions of the image), and the third value is the channel (out of RGB) that we wish to display. 
+
+In the below example, we will specify the third value in the square brackets. Out of indices 0 (red), 1 (green) and 2 (blue), we will display just the blue channel, as follows:
 
 ```{python}
-fig, ax = subplots()
-
-ax.imshow(image[:,:, 2], cmap='gray');
-
-ax.set_xticklabels(());
-ax.set_yticklabels(());
-
-show()
-```
-
-Here we assigned a grey colour map.
-
-
-Now that we know that the images are composed of a set of intensities that are just numbers in a Numpy array, we can start using these numbers to process our image.
-
-As a first approach, we can plot a histogram of the original image intensities. We use the `.ravel()` method to turn the original 154 x 327 array into a one-dimensional array with 503,58 values. This rearrangement allows the inclusion of an image as a single column in a matrix or dataframe!
-
-The histogram plot shows how many of the intensities are found in one layer of this image:
-
-```{python}
-layer = 2
+blue = 2
 
 fig, ax = subplots()
 
-ax.hist(image[:, :, layer][image[:, :, layer] < 255].ravel(), bins=500);
-
-show()
-```
-
-```{python}
-image.size
-```
-
-```{python}
-from PIL import Image
-
-image = Image.open('fig/Cerebellum.jpg')
-
-fig, ax = subplots()
-
-ax.imshow(image);
-
-show()
-```
-
-```{python}
-type(image)
-```
-
-
-```{python}
-image.show()
-```
-
-```{python}
-image.entropy()
-```
-
-```{python}
-image.rotate(-90, expand=True)
-
-```
-
-## Image Masking
-
-
-```{python}
-from matplotlib.image import imread
-from matplotlib.pyplot import subplots, show
-```
-
-```{python}
-image = imread('fig/rose.jpg')
-
-fig, ax = subplots()
-
-ax.imshow(image);
-
-show()
-```
-
-### Transpose Image
-```{python}
-image.shape
-```
-
-```{python}
-image_t = image.transpose((1, 0, 2))
-
-fig, ax = subplots()
-
-ax.imshow(image_t)
+ax.imshow(image[:,:, blue], cmap='gray');
 
 show()
 
 ```
 
-### Only red Component
+This gray image now shows the intensities of the 'blue' channel. Dark pixels correspond to a low intensity, where brighter ones correspond to a higher intensity value.
+
+### **Treating Intensities as Data**
+
+As pixel intensities are simply numerical values, we can deal with them using Python as we would with any numbers. 
+
+For example, we can infer means and standard deviations, and use these to perform statistical analyses of the pixel intensities:
+
+```{python, results = "hold"}
+from numpy import mean, std
+
+image_mean = mean(image)
+image_std  = std(image)
+
+print('Mean of Intensities:              ', round(image_mean, 2))
+print('Standard deviation of Intensities: ', round(image_std, 2))
+```
+
+You could also plot the distribution of these intensities as a histogram. Here we plot the distribution of the blue layer. 
+
+In order to specify to Matplotlib that it must look at all values (not just a single row of pixels in the image), we use a function called `ravel()`, which flattens the image:
 
 ```{python}
 fig, ax = subplots()
 
-ax.imshow(image_t[:, :, 0]);
+ax.hist(image[:, :, blue].ravel(), bins=256);
 
 show()
 ```
 
-### Histogram of Red Component
+This is not too informative: the distribution is distorted by the fact that most intensities are 255 (white). 
+
+We can adjust this by telling Matplotlib to only take values that are smaller than 255:
 
 ```{python}
+fig, ax = subplots()
+
+ax.hist(image[:, :, blue][image[:, :, blue] < 255].ravel(), bins=256);
+
+show()
+```
+
+:::::::::::::::: challenge
+## Exercise: 
+
+Import another picture and check its 
+
+- type (gray or color)
+
+- range of intensities (either 0 to 255, or 0 to 1)
+
+- histogram
+::::::::::::::::
+
+## Masking
+
+The technique of specifying a condition to select or filter the intensities in zn image - as we did when displaying the histogram - is termed **masking**. 
+
+We can use masking as a simple way to detect objects in an image, based on pixel intensity data: 
+
+```{python}
+photo = imread('fig/rose.jpg')
+
+fig, ax = subplots()
+
+ax.imshow(photo);
+
+show()
+```
+
+We will assume that the 'rose' in the picture contains the strongest red intensities. Let us therefore take a look at the histogram of the red channel.
+
+```{python}
+red = 0
+
 fig, ax, = subplots()
 
-ax.hist(image_t[:, :, 0].ravel(), bins=500);
+ax.hist(photo[:, :, red].ravel(), bins=500);
 
 show()
 ```
 
-### Masking the Red Component
+Observing this histogram, we might suspect that intensities below 100 correspond to the background, and that the intensities above, for example, a value of 150 correspond to the rose. We can check this by filtering the intensities, accordingly.
+
+First, we must define a threshold and display the filtered histogram. It is easier if we assign the filter to a variable. We can call this variable `mask`.
+
 ```{python}
-threshold = 90
+threshold = 100
 
-mask = image_t[:, :, 0] < threshold
+mask = photo[:, :, red] > threshold
 
-image_masked = image_t[:, :, 0] * mask
+fig, ax, = subplots()
 
-fig, ax = subplots(ncols=3)
-
-ax[0].imshow(image_t[:, :, 0], cmap='gray')
-ax[1].imshow(mask, cmap='gray')
-ax[2].imshow(image_masked, cmap='gray');
-
-fig.tight_layout()
+ax.hist(photo[:, :, red][mask].ravel(), bins=500);
 
 show()
 ```
 
-### False Colour
-```{python}
-fig, ax = subplots()
+The mask gives us the values where red (and also yellow) parts of the photo are intense. We can thus use this information to turn the rest of the photograph to black. It is done with a function called `invert` which turns "True" to "False", and vice versa. 
 
-ax.imshow(image_masked);
-
-show()
-```
-
-### Apply mask to all layers
-Choose grey value for background
+Before we do that, let us create a copy such that the original remains intact, and we do not overwrite it.
 
 ```{python}
-image_new = image_t.copy()
+from numpy import invert
 
-grey_value = 100
+photo_copy = photo.copy()
 
-image_new[mask, :] = grey_value
+photo_copy[invert(mask), :] = 0
 
 
 fig, ax = subplots()
 
-ax.imshow(image_new);
+ax.imshow(photo_copy);
 
 show()
 ```
 
+
 ```{python}
-fig.savefig('fig/rose_masked.png', format='png')
+fig.savefig('fig/photo_copy.png', format='png')
 ```
 
 
 :::::::::::::::::::::::::::::::::::::keypoints 
 
-- `imread` function is used to read images.
-- `ravel` function flattens a multi-dimentional array into a single array.
-- Image masking help in identifying objects based on colur intensities.
+- `imread()` is a Matplotlib function to import images.
+- `ravel()` is a Numpy function to flatten multi-dimensional arrays to a one-dimensional array.
+- Masking refers to the selection or filtering of specified parts of an array by logical expression.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 [r-markdown]: https://rmarkdown.rstudio.com/
