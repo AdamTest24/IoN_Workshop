@@ -182,9 +182,8 @@
         
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
-        <ul><li><a href="#installing-and-using-nibabel-python-library">Installing and using Nibabel Python Library</a></li>
-<li><a href="#data-pre-processing">Data pre-processing</a></li>
-<li><a href="#segmenting-images-with-gaussian-mixtures">Segmenting images with Gaussian Mixtures</a></li>
+        <ul><li><a href="#nibabel-image-library">NiBabel Image Library</a></li>
+<li><a href="#gaussian-mixture-clustering">Gaussian Mixture Clustering</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
         
@@ -242,7 +241,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Neuro Images Clustering</h1>
-        <p> Last updated on 2023-03-27 | 
+        <p> Last updated on 2023-03-28 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/05-section5.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -256,6 +255,7 @@
 
         
 
+<p><a href="../05-section5.ipynb"><strong>Download Chapter notebook (ipynb)</strong></a></p>
 <div class="overview card">
 <h2 class="card-header">Overview</h2>
 <div class="row g-0">
@@ -263,12 +263,9 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>
-</li>
-<li>
-</li>
-<li>
-</li>
+<ul><li>What is NiBabel?</li>
+<li>How NiBabel used to import neuro-images?</li>
+<li>How is machine learning applied to image data?</li>
 </ul></div>
 </div>
 </div>
@@ -276,48 +273,59 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>
-</li>
-<li>
-</li>
-<li>
-</li>
+<ul><li>Installing and using NiBabel Python Library</li>
+<li>Understanding data pre-processing</li>
+<li>Segmenting images with Gaussian Mixture Models</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
-<section id="installing-and-using-nibabel-python-library"><h2 class="section-heading">Installing and using Nibabel Python Library<a class="anchor" aria-label="anchor" href="#installing-and-using-nibabel-python-library"></a>
+<section id="nibabel-image-library"><h2 class="section-heading">NiBabel Image Library<a class="anchor" aria-label="anchor" href="#nibabel-image-library"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> concatenate, zeros</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.pyplot <span class="im">import</span> subplots, tight_layout, show</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nibabel <span class="im">as</span> nib</span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="load-images-and-get-data">Load images and get data<a class="anchor" aria-label="anchor" href="#load-images-and-get-data"></a></h3>
+<hr class="half-width"><p>Firstly, if you haven’t already installed NiBabel on your command line, please do so in this notebook by uncommenting and running the code in the cell below.</p>
+<pre><code><span><span class="co"># conda install -c conda-forge nibabel</span></span></code></pre>
+<p>Let’s begin by importing the nibabel package. Here we are importing it as <code>nib</code> - an abbreviation of our choosing to access the package’s functions more easily in our code. You can use any abbreviation that you like; just remember to call it correctly in any subsequent code that you write.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>img_nibabel <span class="op">=</span> nib.load(<span class="st">"data/T1_mask.nii"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(img_nibabel)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nibabel <span class="im">as</span> nib</span></code></pre>
+</div>
+<div id="callout1" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="note" class="callout-inner">
+<h3 class="callout-title">Note<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
+<div class="callout-content">
+<p>Note how we import the NiBabel package as <code>nib</code>. You can use any abbreviation to access the package’s functions from within your programme.</p>
+<p>To familiarise yourself with the NiBabel package, try the <a href="https://nipy.org/nibabel/gettingstarted.html" class="external-link">Getting started tutorial</a> using an example image file.</p>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="load-images-and-get-data"><strong>Load images and get data</strong><a class="anchor" aria-label="anchor" href="#load-images-and-get-data"></a></h3>
+<p>NiBabel has its own import function <code>load()</code>. Let’s load in our image, and assign this to a variable.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>img_nibabel <span class="op">=</span> nib.load(<span class="st">"data/T1_mask.nii"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(img_nibabel)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>&lt;class 'nibabel.nifti1.Nifti1Image'&gt;</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb4">
+<p>The <code>header</code> lets you see any metadata that is associated with the image.</p>
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>meta_info <span class="op">=</span> img_nibabel.header</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_info)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meta_info <span class="op">=</span> img_nibabel.header</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_info)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -367,242 +375,135 @@ srow_z          : [  0.         0.         2.2      -86.742615]
 intent_name     : b''
 magic           : b'n+1'</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_info.get_xyzt_units())</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(meta_info.get_xyzt_units())</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>('mm', 'sec')</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb8">
+<p>With <code>get_fdata()</code> the image intensities can be converted to a Numpy array.</p>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>img1 <span class="op">=</span> img_nibabel.get_fdata()</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(img1), img1.shape)</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>&lt;class 'numpy.memmap'&gt; (128, 128, 70)</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>img_nibabel <span class="op">=</span> nib.load(<span class="st">"data/b0_mask.nii"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>img2 <span class="op">=</span> img_nibabel.get_fdata()</span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>img1.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>img1 <span class="op">=</span> img_nibabel.get_fdata()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>img1.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>(128, 128, 70)</code></pre>
 </div>
-</div>
-<div class="section level3">
-<h3 id="plotting-images">plotting Images<a class="anchor" aria-label="anchor" href="#plotting-images"></a></h3>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>img_slice <span class="op">=</span> <span class="dv">30</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>img_nibabel <span class="op">=</span> nib.load(<span class="st">"data/b0_mask.nii"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>img2 <span class="op">=</span> img_nibabel.get_fdata()</span></code></pre>
 </div>
+<p>We now import a second image with same spatial resolution, but additional information from another imaging modality.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>img_nibabel <span class="op">=</span> nib.load(<span class="st">"data/b0_mask.nii"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>img2 <span class="op">=</span> img_nibabel.get_fdata()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>img2.shape</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>(128, 128, 70)</code></pre>
+</div>
+<p>For simpler handling, we only select a two-dimensional slice from each 3D image.</p>
+</div>
+<div class="section level3">
+<h3 id="plot-images"><strong>Plot Images</strong><a class="anchor" aria-label="anchor" href="#plot-images"></a></h3>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>img_slice <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> ax[<span class="dv">0</span>].imshow(img1[:, :, img_slice], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>f2 <span class="op">=</span> ax[<span class="dv">1</span>].imshow(img2[:, :, img_slice], cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>fig.colorbar(f1, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span></code></pre>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>img1_slice <span class="op">=</span> img1[:, :, img_slice]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>img2_slice <span class="op">=</span> img2[:, :, img_slice]</span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>&lt;matplotlib.colorbar.Colorbar object at 0x7f44438bf670&gt;</code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.pyplot <span class="im">import</span> subplots, show</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>f1 <span class="op">=</span> ax[<span class="dv">0</span>].imshow(img1_slice, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>f2 <span class="op">=</span> ax[<span class="dv">1</span>].imshow(img2_slice, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>fig.colorbar(f1, ax<span class="op">=</span>ax[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>fig.colorbar(f2, ax<span class="op">=</span>ax[<span class="dv">1</span>])<span class="op">;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'T1 Image'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'B0 Image'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
+<figure><img src="../fig/05-section5-rendered-unnamed-chunk-9-1.png" width="1440" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In order to check how similar the images are, we can compare their intensity histograms.</p>
+</div>
+<div class="section level3">
+<h3 id="histograms"><strong>Histograms</strong><a class="anchor" aria-label="anchor" href="#histograms"></a></h3>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig.colorbar(f2, ax<span class="op">=</span>ax[<span class="dv">1</span>])<span class="op">;</span></span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (img1_slice<span class="op">&gt;</span><span class="dv">0</span>) <span class="op">&amp;</span> (img2_slice<span class="op">&gt;</span><span class="dv">0</span>) </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'T1 Image'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'B0 Image'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>img1_nz <span class="op">=</span> img1_slice[mask]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>img2_nz <span class="op">=</span> img2_slice[mask]</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">5</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(img1_nz, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(img2_nz, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-9-1.png" width="1440" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
-</section><section id="data-pre-processing"><h2 class="section-heading">Data pre-processing<a class="anchor" aria-label="anchor" href="#data-pre-processing"></a>
-</h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>img1_slice <span class="op">=</span> img1[:, :, img_slice]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>img2_slice <span class="op">=</span> img2[:, :, img_slice]</span></code></pre>
+<figure><img src="../fig/05-section5-rendered-unnamed-chunk-10-3.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>These two images appear to have different, potentially complementary information.</p>
 </div>
 <div class="section level3">
-<h3 id="remove-zeros">Remove zeros<a class="anchor" aria-label="anchor" href="#remove-zeros"></a></h3>
+<h3 id="visualise-and-concatenate"><strong>Visualise and Concatenate</strong><a class="anchor" aria-label="anchor" href="#visualise-and-concatenate"></a></h3>
+<p>We can visualise the intensity data in a scatter plot, a two-dimensional histogram, and a kernel density contour plot from the Seaborn library. For the Seaborn library, <a href="https://seaborn.pydata.org" class="external-link">see documentation:</a></p>
+<p>Here is the <a href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html" class="external-link">documentation for the kernel density plot:</a></p>
+<p>Here are the plots:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">6</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(img1_nz, img2_nz)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2D Histogram</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist2d(img1_nz, img2_nz, bins<span class="op">=</span><span class="dv">50</span>, vmax<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> seaborn <span class="im">import</span> kdeplot</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Density Plot</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>kdeplot(x<span class="op">=</span>img1_nz, y<span class="op">=</span>img2_nz, ax<span class="op">=</span>ax[<span class="dv">2</span>])<span class="op">;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
+</div>
+<figure><img src="../fig/05-section5-rendered-unnamed-chunk-11-5.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The scatter plot (left) shows a distorted, noisy distribution but too many valuess seem to be on top of each other. The 2D histogram (centre) shows two regions (yellow) with large counts. The kernel density plot (right) confirms two regions of high density.</p>
+<p>For Machine Learning, the data need to be in a single two-dimensional array. Rows denote pixels and (in our case) there are two columns for two images. Numpy function concatenate helps us to create the array in the correct form to apply machine learning algorithms.</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">5</span>))</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> concatenate</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(img1_slice.flatten(), bins<span class="op">=</span><span class="dv">50</span>)</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>(array([1.2374e+04, 3.0000e+00, 6.0000e+00, 1.0000e+01, 1.1000e+01,
-       2.4000e+01, 3.2000e+01, 2.5000e+01, 4.3000e+01, 3.5000e+01,
-       3.8000e+01, 3.3000e+01, 2.9000e+01, 3.0000e+01, 2.6000e+01,
-       4.7000e+01, 4.6000e+01, 6.6000e+01, 5.3000e+01, 6.6000e+01,
-       6.8000e+01, 6.4000e+01, 9.7000e+01, 9.5000e+01, 1.2100e+02,
-       1.2700e+02, 1.3100e+02, 1.2600e+02, 1.5600e+02, 1.3700e+02,
-       1.4000e+02, 1.2900e+02, 1.1900e+02, 1.1900e+02, 1.3100e+02,
-       1.4600e+02, 1.5400e+02, 1.4300e+02, 1.7000e+02, 1.2800e+02,
-       1.1100e+02, 1.1100e+02, 1.0900e+02, 1.0500e+02, 1.0500e+02,
-       1.2600e+02, 9.9000e+01, 5.5000e+01, 4.2000e+01, 2.3000e+01]), array([  0.        ,   9.6287677 ,  19.2575354 ,  28.8863031 ,
-        38.5150708 ,  48.1438385 ,  57.7726062 ,  67.4013739 ,
-        77.0301416 ,  86.6589093 ,  96.287677  , 105.9164447 ,
-       115.5452124 , 125.1739801 , 134.8027478 , 144.4315155 ,
-       154.0602832 , 163.6890509 , 173.3178186 , 182.9465863 ,
-       192.575354  , 202.2041217 , 211.8328894 , 221.4616571 ,
-       231.0904248 , 240.7191925 , 250.34796021, 259.97672791,
-       269.60549561, 279.23426331, 288.86303101, 298.49179871,
-       308.12056641, 317.74933411, 327.37810181, 337.00686951,
-       346.63563721, 356.26440491, 365.89317261, 375.52194031,
-       385.15070801, 394.77947571, 404.40824341, 414.03701111,
-       423.66577881, 433.29454651, 442.92331421, 452.55208191,
-       462.18084961, 471.80961731, 481.43838501]), &lt;BarContainer object of 50 artists&gt;)</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(img2_slice.flatten(), bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
-</div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-11-3.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> (img1_slice<span class="op">&gt;</span><span class="dv">0</span>) <span class="op">&amp;</span> (img2_slice<span class="op">&gt;</span><span class="dv">0</span>) </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>img1_nz <span class="op">=</span> img1_slice[mask]</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>img2_nz <span class="op">=</span> img2_slice[mask]</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">5</span>))</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(img1_nz, bins<span class="op">=</span><span class="dv">50</span>)</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>(array([  7.,   9.,  11.,  18.,  35.,  19.,  39.,  33.,  32.,  41.,  29.,
-        25.,  27.,  29.,  52.,  58.,  52.,  48.,  66.,  71.,  57.,  96.,
-        88., 119., 124., 122., 125., 149., 136., 121., 137., 112., 113.,
-       135., 116., 151., 156., 135., 159., 113., 108., 100., 107., 104.,
-       109., 114.,  88.,  53.,  38.,  23.]), array([ 17.50374222,  26.78243507,  36.06112793,  45.33982079,
-        54.61851364,  63.8972065 ,  73.17589935,  82.45459221,
-        91.73328506, 101.01197792, 110.29067078, 119.56936363,
-       128.84805649, 138.12674934, 147.4054422 , 156.68413506,
-       165.96282791, 175.24152077, 184.52021362, 193.79890648,
-       203.07759933, 212.35629219, 221.63498505, 230.9136779 ,
-       240.19237076, 249.47106361, 258.74975647, 268.02844933,
-       277.30714218, 286.58583504, 295.86452789, 305.14322075,
-       314.4219136 , 323.70060646, 332.97929932, 342.25799217,
-       351.53668503, 360.81537788, 370.09407074, 379.3727636 ,
-       388.65145645, 397.93014931, 407.20884216, 416.48753502,
-       425.76622787, 435.04492073, 444.32361359, 453.60230644,
-       462.8809993 , 472.15969215, 481.43838501]), &lt;BarContainer object of 50 artists&gt;)</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(img2_nz, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
-</div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-12-5.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
-<div class="section level3">
-<h3 id="scaling">Scaling<a class="anchor" aria-label="anchor" href="#scaling"></a></h3>
-<p>Standard Scaler: removing the mean and scaling to unit variance</p>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>img1_scaled <span class="op">=</span> scaler.fit_transform(img1_nz.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>img2_scaled <span class="op">=</span> scaler.fit_transform(img2_nz.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>img1_scaled.shape</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>(4009, 1)</code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="visualise-and-concatenate">Visualise and Concatenate<a class="anchor" aria-label="anchor" href="#visualise-and-concatenate"></a></h3>
-<p>Seaborn: <a href="https://seaborn.pydata.org" class="external-link uri">https://seaborn.pydata.org</a></p>
-<p>c.f. pair grid example <a href="https://seaborn.pydata.org/examples/pair_grid_with_kde.html" class="external-link uri">https://seaborn.pydata.org/examples/pair_grid_with_kde.html</a></p>
-<p>kdeplot documentation <a href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html" class="external-link uri">https://seaborn.pydata.org/generated/seaborn.kdeplot.html</a></p>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">6</span>))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(img1_nz, img2_nz)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2D Histogram</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist2d(img1_nz, img2_nz, bins<span class="op">=</span><span class="dv">50</span>, vmax<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> seaborn <span class="im">import</span> kdeplot</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Density Plot</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>kdeplot(x<span class="op">=</span>img1_nz, y<span class="op">=</span>img2_nz, ax<span class="op">=</span>ax[<span class="dv">2</span>])<span class="op">;</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
-</div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-15-7.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
-<div class="section level3">
-<h3 id="scaled-images">Scaled Images<a class="anchor" aria-label="anchor" href="#scaled-images"></a></h3>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">6</span>))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].scatter(img1_scaled[:,<span class="dv">0</span>], img2_scaled[:,<span class="dv">0</span>])</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2D Histogram</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist2d(img1_scaled[:,<span class="dv">0</span>], img2_scaled[:,<span class="dv">0</span>], bins<span class="op">=</span><span class="dv">50</span>, vmax<span class="op">=</span><span class="dv">10</span>)<span class="op">;</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> seaborn <span class="im">import</span> kdeplot</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Density Plot</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>kdeplot(x<span class="op">=</span>img1_scaled[:,<span class="dv">0</span>], y<span class="op">=</span>img2_scaled[:,<span class="dv">0</span>], ax<span class="op">=</span>ax[<span class="dv">2</span>])<span class="op">;</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
-</div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-16-9.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>all_img_scaled <span class="op">=</span> concatenate([img1_scaled, img2_scaled], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>all_img_scaled.shape</span></code></pre>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>all_imgs <span class="op">=</span> concatenate([img1_nz.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), img2_nz.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>all_imgs.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -610,63 +511,87 @@ magic           : b'n+1'</code></pre>
 <pre class="output" tabindex="0"><code>(4009, 2)</code></pre>
 </div>
 </div>
-</section><section id="segmenting-images-with-gaussian-mixtures"><h2 class="section-heading">Segmenting images with Gaussian Mixtures<a class="anchor" aria-label="anchor" href="#segmenting-images-with-gaussian-mixtures"></a>
+</section><section id="gaussian-mixture-clustering"><h2 class="section-heading">Gaussian Mixture Clustering<a class="anchor" aria-label="anchor" href="#gaussian-mixture-clustering"></a>
 </h2>
-<hr class="half-width"><div class="section level3">
-<h3 id="gmm-clustering">GMM clustering<a class="anchor" aria-label="anchor" href="#gmm-clustering"></a></h3>
-<div class="codewrapper sourceCode" id="cb31">
+<hr class="half-width"><p>After the data preparation steps, we can proceed with our machine learning analysis.</p>
+<p>We want to segment the images into different types of tissues. It is not obvious how to do this, as the intensity values in the above histograms are distributed without clear segmentation of intensities. We will nonetheless attempt to cluster the images using a Gaussian Mixture Model (GMM) algorithm.</p>
+<p>The result of the clustering are predicted labels for each of the pixels (voxels in general), according to the tissue type which the algorithms assigns.</p>
+<p>Here is the workflow:</p>
+<ol style="list-style-type: decimal"><li><p>Import the GMM class from the Python machine learning library <strong>Scikit-learn</strong>.</p></li>
+<li><p>Decide the number of clusters that we expect to see.</p></li>
+<li><p>Set a random seed to make the outcome reproducible.</p></li>
+<li><p>Instantiate the clustering algorithm.</p></li>
+<li><p>Use function <code>fit_predict</code> to fit the model to the data and obtain the labels for each pixel.</p></li>
+</ol><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.mixture <span class="im">import</span> GaussianMixture</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.mixture <span class="im">import</span> GaussianMixture</span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>n_components <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>RANDOM_STATE <span class="op">=</span> <span class="dv">12345</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>gmm <span class="op">=</span> GaussianMixture(n_components<span class="op">=</span>n_components, </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                      random_state<span class="op">=</span>RANDOM_STATE)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>all_img_labels <span class="op">=</span> gmm.fit_predict(all_img_scaled)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>all_img_labels[<span class="dv">0</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n_components <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>RANDOM_STATE <span class="op">=</span> <span class="dv">12345</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>gmm <span class="op">=</span> GaussianMixture(n_components<span class="op">=</span>n_components, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                      random_state<span class="op">=</span>RANDOM_STATE)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>all_img_labels <span class="op">=</span> gmm.fit_predict(all_imgs)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>all_img_labels[<span class="dv">0</span>]</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code><span><span class="fl">2</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb34">
+<p>We can now plot a scatter plot of the (predicted) labels to see their distribution.</p>
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ax.scatter(img1_nz, img2_nz, c<span class="op">=</span>all_img_labels, s<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Image 1'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Image 2'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ax.scatter(img1_nz, img2_nz, c<span class="op">=</span>all_img_labels, s<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Image 1'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Image 2'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)<span class="op">;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-20-11.png" width="768" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb35">
+<figure><img src="../fig/05-section5-rendered-unnamed-chunk-15-7.png" width="384" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The yellow and green dots seem to indicate “objects” in the image. The purple dots are the remaining “other” pixels.</p>
+<p>Now, we need to map the predicted labels from the “intensity space” back to the original image in its anatomical space. We find that the algorithm can pick up structures that can be identified as separate compartments in the image.</p>
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>all_img_labels_mapped <span class="op">=</span> zeros(img1_slice.shape)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>all_img_labels_mapped[mask] <span class="op">=</span> all_img_labels</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy <span class="im">import</span> zeros</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>all_img_labels_mapped <span class="op">=</span> zeros(img1_slice.shape)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>all_img_labels_mapped[mask] <span class="op">=</span> all_img_labels</span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ax.imshow(all_img_labels_mapped)<span class="op">;</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ax.imshow(all_img_labels_mapped)<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
-<figure><img src="../fig/05-section5-rendered-unnamed-chunk-22-13.png" width="1920" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
+<figure><img src="../fig/05-section5-rendered-unnamed-chunk-17-9.png" width="384" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="exercise" class="callout-inner">
+<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>Redo the above sequence of steps with different pre-assigned number of clusters and compare the results.</p>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -674,12 +599,9 @@ magic           : b'n+1'</code></pre>
 <h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
 </h3>
 <div class="callout-content">
-<ul><li>
-</li>
-<li>
-</li>
-<li>
-</li>
+<ul><li>NiBabel is a package to access various neuroimaging file formats.</li>
+<li>Object detection in neuro-images can be done using Gaussian Mixture Models (GMM) clustering.</li>
+<li>The <code>fit_predict</code> function fits a model to data and returns predicted labels for each data point.</li>
 </ul></div>
 </div>
 </div>
@@ -687,7 +609,6 @@ magic           : b'n+1'</code></pre>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/04-section4.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -740,9 +661,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/05-section5.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/05-section5.html",
-  "dateCreated": "2023-03-27",
-  "dateModified": "2023-03-27",
-  "datePublished": "2023-03-27"
+  "dateCreated": "2023-03-28",
+  "dateModified": "2023-03-28",
+  "datePublished": "2023-03-28"
 }
 
   </script><script>
