@@ -81,11 +81,13 @@ conda activate ion_workshop
 
 ```
 
-pip install numpy, pandas, scipy, sklearn, seaborn
+pip install numpy, pandas, scipy, seaborn
 
 pip install networkx==2.8.8
 
 conda install matplotlib
+
+conda install scikit-learn
 
 conda install -c conda-forge nibabel
 ```
