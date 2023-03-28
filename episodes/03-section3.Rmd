@@ -4,6 +4,8 @@ teaching: 10
 exercises: 2
 ---
 
+[**Download Chapter notebook (ipynb)**](03-section3.ipynb)
+
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How is time series data visualised?
