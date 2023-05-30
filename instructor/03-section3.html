@@ -241,7 +241,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Time Series (EEG)</h1>
-        <p> Last updated on 2023-05-23 | 
+        <p> Last updated on 2023-05-30 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/03-section3.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -398,12 +398,12 @@
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks(offset<span class="op">*</span>arange(sensors))</span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    ax.set_yticklabels(flip(arange(sensors)<span class="op">+</span><span class="dv">1</span>))</span></code></pre>
 </div>
-<div id="discussion1" class="callout discussion">
+<div id="python-function" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="python-function" class="callout-inner">
-<h3 class="callout-title">Python Function<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">Python Function<a class="anchor" aria-label="anchor" href="#python-function"></a>
 </h3>
 <div class="callout-content">
 <p>Please execute the above function definition before proceeding. The function code takes data and creates a plot of all columns as time series, one above the other, using a constant offset. When you execute the function code nothing happens. Similar to the import, running a function code will only activate it and make it available for later use.</p>
@@ -429,12 +429,12 @@
 <li><p>Oscillations recorded at different locations above the brain differ.</p></li>
 <li><p>Oscillations are not stable, but modulated over time.</p></li>
 <li><p>There are different frequency components in each trace.</p></li>
-</ul><div id="challenge1" class="callout challenge">
+</ul><div id="exercise" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#challenge1"></a>
+<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
 </h3>
 <div class="callout-content">
 <p>Try to import the data in file <code>data/EEG_absence.txt</code> into a new dataframe and convert the to a Numpy array called <code>data_2</code>. Then display <code>data_2</code> as a time series using the same function.</p>
@@ -448,7 +448,7 @@
   ANSWER
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -611,7 +611,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/LearnToDiscover/sandpaper/tree/l2d" class="external-link">sandpaper (0.11.17)</a>,
+        <p>Built with <a href="https://github.com/LearnToDiscover/sandpaper/tree/l2d" class="external-link">sandpaper (0.12.0.9000)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/3b06f4559892e31ff0a6bae1d838cd1ba6fd94fb" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/LearnToDiscover/varnish/tree/f412e8bbc14a5110120155e1af9282842877c62f" class="external-link">varnish (0.2.14)</a>.</p>
 			</div>
@@ -634,8 +634,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-md/instructor/03-section3.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/03-section3.html",
   "dateCreated": "2023-03-28",
-  "dateModified": "2023-05-23",
-  "datePublished": "2023-05-23"
+  "dateModified": "2023-05-30",
+  "datePublished": "2023-05-30"
 }
 
   </script><script>
