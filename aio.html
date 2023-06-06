@@ -284,7 +284,7 @@
         
 <section id="aio-01-section1"><p>Content from <a href="01-section1.html">Basic Python</a></p>
 <hr>
-<p> Last updated on 2023-05-30 | 
+<p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/01-section1.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -389,7 +389,7 @@
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: IndexError: list index out of range</code></pre>
+<pre class="error" tabindex="0"><code>list index out of range</code></pre>
 </div>
 <p>All items will be shown with the colon <code>:</code></p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -558,7 +558,7 @@
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: TypeError: can only concatenate list (not "int") to list</code></pre>
+<pre class="error" tabindex="0"><code>can only concatenate list (not "int") to list</code></pre>
 </div>
 <p>Looking at this, it might be expected that 10 would be added to each item in the list. Instead, an error is thrown. This, and other features of <code>list</code> are not that intuitive.</p>
 <p>In data science and machine learning, we therefore predominantly use <code>Numpy</code> arrays.</p>
@@ -746,7 +746,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-02-section2"><p>Content from <a href="02-section2.html">Neuro-Image Handling</a></p>
 <hr>
-<p> Last updated on 2023-05-30 | 
+<p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/02-section2.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1050,7 +1050,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-section3"><p>Content from <a href="03-section3.html">Time Series (EEG)</a></p>
 <hr>
-<p> Last updated on 2023-05-30 | 
+<p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/03-section3.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1352,7 +1352,7 @@ However, the assumption behind the Fourier transform is that the data are provid
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Amplitude'</span>)<span class="op">;</span></span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ax.set_yscale('log')</span></span></code></pre>
 </div>
-<figure><img src="fig/03-section3-rendered-unnamed-chunk-11-5.png" width="672" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p style="text-align: justify;">
+<p style="text-align: justify;">
 We can see that in channel with index 0, the main amplitude contributions lie between 2 and 3 Hz, the so-called fundamental frequency. There are also some further local maxima. These are interpreted as “harmonics”, integer multiples of the fundamental frequency.
 </p>
 <p>Clinically, this means that the signal recorded during this epileptic seizure is dominated by an approximately 3Hz rhythm where each cycle lasts about a third of a second. The presence of harmonics points to the nonlinear nature of the rhythm.</p>
@@ -1378,7 +1378,7 @@ We can see that in channel with index 0, the main amplitude contributions lie be
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
-<figure><img src="fig/03-section3-rendered-unnamed-chunk-12-7.png" width="576" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We find that most channels display the fundamental between 2.5 and 3 Hz. Clinically, this is then referred to as a Generalised Seizure, meaning it can be recorded over a large area of cortex.</p>
+<figure><img src="fig/03-section3-rendered-unnamed-chunk-12-5.png" width="576" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We find that most channels display the fundamental between 2.5 and 3 Hz. Clinically, this is then referred to as a Generalised Seizure, meaning it can be recorded over a large area of cortex.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1403,7 +1403,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-04-section4"><p>Content from <a href="04-section4.html">Network Neuroscience</a></p>
 <hr>
-<p> Last updated on 2023-05-30 | 
+<p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/04-section4.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1682,14 +1682,13 @@ Next, we import the labels and convert the resulting dataframe into a dictionary
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="bu">dict</span>(neuronGraph.degree).values(), <span class="st">'-o'</span>)<span class="op">;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Index'</span>)<span class="op">;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Degree'</span>)<span class="op">;</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> subplots()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="bu">dict</span>(neuronGraph.degree).values(), <span class="st">'-o'</span>)<span class="op">;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Index'</span>)<span class="op">;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Degree'</span>)<span class="op">;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>show()</span></code></pre>
 </div>
 <figure><img src="fig/04-section4-rendered-unnamed-chunk-14-17.png" width="672" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
 </div>
@@ -1830,7 +1829,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-05-section5"><p>Content from <a href="05-section5.html">Neuro Images Clustering</a></p>
 <hr>
-<p> Last updated on 2023-05-30 | 
+<p> Last updated on 2023-06-06 | 
         
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/05-section5.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2257,8 +2256,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
   "dateCreated": "2023-03-28",
-  "dateModified": "2023-05-30",
-  "datePublished": "2023-05-30"
+  "dateModified": "2023-06-06",
+  "datePublished": "2023-06-06"
 }
 
   </script><script>

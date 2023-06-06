@@ -88,7 +88,7 @@ my_list[3]
 ```
 
 ```{.error}
-Error: IndexError: list index out of range
+list index out of range
 ```
 
 All items will be shown with the colon `:`
@@ -243,7 +243,7 @@ print(my_list + 10)
 ```
 
 ```{.error}
-Error: TypeError: can only concatenate list (not "int") to list
+can only concatenate list (not "int") to list
 ```
 
 Looking at this, it might be expected that 10 would be added to each item in the list. Instead, an error is thrown. This, and other features of `list` are not that intuitive.

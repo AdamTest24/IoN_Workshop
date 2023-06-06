@@ -279,7 +279,6 @@ Quantitative analysis of the network is also possible. For instance, we can plot
 
 
 ```python
-
 fig, ax = subplots()
 
 ax.plot(dict(neuronGraph.degree).values(), '-o');
