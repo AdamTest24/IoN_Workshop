@@ -302,7 +302,7 @@ all_img_labels[0]
 ```
 
 ```{.output}
-2
+1
 ```
 
 We can now plot a scatter plot of the (predicted) labels to see their distribution.
