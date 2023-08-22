@@ -102,6 +102,8 @@ fig, ax = subplots()
 ax.plot(data_1);
 ```
 
+<img src="fig/03-section3-rendered-unnamed-chunk-5-1.png" width="613" style="display: block; margin: auto;" />
+
 Below is a block of code that improves the plot. We are defining a **Python function**. To activate it, execute the cell.
 
 
@@ -168,7 +170,7 @@ plot_series(data_1, sr);
 show()
 ```
 
-<img src="fig/03-section3-rendered-unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+<img src="fig/03-section3-rendered-unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" />
 
 Observations: In this display of a non-pathological (background) EEG, you should be able to observe the following:
 
@@ -209,7 +211,7 @@ plot_series(data_2, sr)
 show()
 ```
 
-<img src="fig/03-section3-rendered-unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" />
+<img src="fig/03-section3-rendered-unnamed-chunk-8-5.png" width="672" style="display: block; margin: auto;" />
 :::::::::::::::::
 
 ::::::::::::::::::::::::::::::: 
@@ -276,6 +278,8 @@ ax.set_ylabel('Amplitude');
 # ax.set_yscale('log')
 ```
 
+<img src="fig/03-section3-rendered-unnamed-chunk-11-7.png" width="672" style="display: block; margin: auto;" />
+
 <p style='text-align: justify;'>
 We can see that in channel with index 0, the main amplitude contributions lie between 2 and 3 Hz, the so-called fundamental frequency. There are also some further local maxima. These are interpreted as "harmonics", integer multiples of the fundamental frequency.
 </p>
@@ -305,7 +309,7 @@ fig.tight_layout()
 show()
 ```
 
-<img src="fig/03-section3-rendered-unnamed-chunk-12-5.png" width="576" style="display: block; margin: auto;" />
+<img src="fig/03-section3-rendered-unnamed-chunk-12-9.png" width="576" style="display: block; margin: auto;" />
 
 We find that most channels display the fundamental between 2.5 and 3 Hz. Clinically, this is then referred to as a Generalised Seizure, meaning it can be recorded over a large area of cortex.
 
