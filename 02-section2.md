@@ -42,10 +42,6 @@ In order for this notebook to run smoothly, please make sure that "Cerebellum.jp
 from matplotlib.image import imread
 ```
 
-```{.output}
-Matplotlib is building the font cache; this may take a moment.
-```
-
 
 ```python
 image = imread('fig/Cerebellum.jpg')
