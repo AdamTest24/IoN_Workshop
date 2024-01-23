@@ -46,7 +46,13 @@ from pandas import read_csv
 # Please check the path to the file on your machine!
 
 df1 = read_csv("data/EEG_background.txt", delim_whitespace=True) 
+```
 
+```{.output}
+<string>:3: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
+```
+
+```python
 df1.head()
 ```
 
@@ -193,7 +199,13 @@ Try to import the data in file `data/EEG_absence.txt` into a new dataframe and c
 
 ```python
 df2 = read_csv("data/EEG_absence.txt", delim_whitespace=True) 
+```
 
+```{.output}
+<string>:1: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
+```
+
+```python
 df2_np = df2.to_numpy()
 
 data_2 = df2_np[:, :20]
