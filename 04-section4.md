@@ -90,7 +90,7 @@ nx.draw_networkx(firstGraph)
 show()
 ```
 
-<img src="fig/04-section4-rendered-unnamed-chunk-4-1.png" width="613" style="display: block; margin: auto;" />
+<img src="fig/04-section4-rendered-unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 
 To change the size and the colour of the node symbols:
 

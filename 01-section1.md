@@ -87,8 +87,8 @@ If the index refers to a non-existing item, an error will be "thrown" (in Python
 my_list[3]
 ```
 
-```{.error}
-list index out of range
+```{.output}
+IndexError: list index out of range
 ```
 
 All items will be shown with the colon `:`
@@ -242,8 +242,8 @@ print(my_list)
 print(my_list + 10)
 ```
 
-```{.error}
-can only concatenate list (not "int") to list
+```{.output}
+TypeError: can only concatenate list (not "int") to list
 ```
 
 Looking at this, it might be expected that 10 would be added to each item in the list. Instead, an error is thrown. This, and other features of `list` are not that intuitive.

@@ -108,7 +108,7 @@ fig, ax = subplots()
 ax.plot(data_1);
 ```
 
-<img src="fig/03-section3-rendered-unnamed-chunk-5-1.png" width="613" style="display: block; margin: auto;" />
+<img src="fig/03-section3-rendered-unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
 
 Below is a block of code that improves the plot. We are defining a **Python function**. To activate it, execute the cell.
 
