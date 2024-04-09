@@ -42,6 +42,10 @@ In order for this notebook to run smoothly, please make sure that "Cerebellum.jp
 from matplotlib.image import imread
 ```
 
+```output
+Matplotlib is building the font cache; this may take a moment.
+```
+
 
 ```python
 image = imread('fig/Cerebellum.jpg')
@@ -80,7 +84,7 @@ To check the number of pixels in our image we use the `shape` function (without 
 image.shape
 ```
 
-```{.output}
+```output
 (154, 327, 3)
 ```
 
@@ -97,7 +101,7 @@ For example, the pixel in the top left corner would be accessed, as follows:
 image[0, 0]
 ```
 
-```{.output}
+```output
 array([255, 255, 255], dtype=uint8)
 ```
 
@@ -160,7 +164,7 @@ print('Mean of Intensities:              ', round(image_mean, 2))
 print('Standard deviation of Intensities: ', round(image_std, 2))
 ```
 
-```{.output}
+```output
 Mean of Intensities:               220.0
 Standard deviation of Intensities:  61.46
 ```

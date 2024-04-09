@@ -59,7 +59,7 @@ img_nibabel = nib.load("data/T1_mask.nii")
 type(img_nibabel)
 ```
 
-```{.output}
+```output
 <class 'nibabel.nifti1.Nifti1Image'>
 ```
 
@@ -72,7 +72,7 @@ meta_info = img_nibabel.header
 print(meta_info)
 ```
 
-```{.output}
+```output
 <class 'nibabel.nifti1.Nifti1Header'> object, endian='<'
 sizeof_hdr      : 348
 data_type       : b''
@@ -124,7 +124,7 @@ magic           : b'n+1'
 print(meta_info.get_xyzt_units())
 ```
 
-```{.output}
+```output
 ('mm', 'sec')
 ```
 
@@ -137,7 +137,7 @@ img1 = img_nibabel.get_fdata()
 img1.shape
 ```
 
-```{.output}
+```output
 (128, 128, 70)
 ```
 
@@ -159,7 +159,7 @@ img2 = img_nibabel.get_fdata()
 img2.shape
 ```
 
-```{.output}
+```output
 (128, 128, 70)
 ```
 
@@ -258,7 +258,7 @@ all_imgs = concatenate([img1_nz.reshape(-1,1), img2_nz.reshape(-1,1)], axis=1)
 all_imgs.shape
 ```
 
-```{.output}
+```output
 (4009, 2)
 ```
 
@@ -301,7 +301,7 @@ all_img_labels = gmm.fit_predict(all_imgs)
 all_img_labels[0]
 ```
 
-```{.output}
+```output
 1
 ```
 

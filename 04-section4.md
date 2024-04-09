@@ -56,7 +56,7 @@ firstGraph.add_node('Node C')
 print(firstGraph.nodes)
 ```
 
-```{.output}
+```output
 ['Node A', 'Node B', 'Node C']
 ```
 
@@ -71,7 +71,7 @@ firstGraph.add_edge('Node B', 'Node C')
 print(firstGraph.edges)
 ```
 
-```{.output}
+```output
 [('Node A', 'Node B'), ('Node A', 'Node C'), ('Node B', 'Node C')]
 ```
 
@@ -190,7 +190,7 @@ neurons = data.to_numpy()
 len(neurons)
 ```
 
-```{.output}
+```output
 50
 ```
 
@@ -227,7 +227,7 @@ neuronLabels = neuronNames[0]
 print(neuronLabels)
 ```
 
-```{.output}
+```output
 {0: 'ADFL', 1: 'ADFR', 2: 'ADLL', 3: 'ADLR', 4: 'AFDL', 5: 'AFDR', 6: 'AIAL', 7: 'AIAR', 8: 'AIBR', 9: 'AINL', 10: 'AINR', 11: 'AIZL', 12: 'AIZR', 13: 'ALA', 14: 'ASEL', 15: 'ASER', 16: 'ASGL', 17: 'ASGR', 18: 'ASHL', 19: 'ASHR', 20: 'ASIL', 21: 'ASIR', 22: 'ASJL', 23: 'ASJR', 24: 'ASKL', 25: 'ASKR', 26: 'AUAL', 27: 'AUAR', 28: 'AVAL', 29: 'AVAR', 30: 'AVBL', 31: 'AVBR', 32: 'AVDL', 33: 'AVDR', 34: 'AVEL', 35: 'AVER', 36: 'AVHL', 37: 'AVHR', 38: 'AVJL', 39: 'AVJR', 40: 'AVL', 41: 'AWAL', 42: 'AWAR', 43: 'AWBL', 44: 'AWBR', 45: 'AWCL', 46: 'AWCR', 47: 'BAGL', 48: 'BAGR', 49: 'CEPDL'}
 ```
 
@@ -303,7 +303,7 @@ neuronPos = read_csv('data/celegans131positions_50.csv', header=None)
 neuronPos.items
 ```
 
-```{.output}
+```output
 <bound method DataFrame.items of            0         1
 0   0.082393 -0.000984
 1   0.083279 -0.003184

@@ -53,7 +53,7 @@ Type the name and execute a cell to see its content.
 my_list
 ```
 
-```{.output}
+```output
 [1, 2, 3]
 ```
 
@@ -65,7 +65,7 @@ To access an item in a list, we use the name of the list, followed by square bra
 my_list[2]
 ```
 
-```{.output}
+```output
 3
 ```
 
@@ -76,7 +76,7 @@ The last item in an array is referred to with index `-1`
 my_list[-1]
 ```
 
-```{.output}
+```output
 3
 ```
 
@@ -87,7 +87,7 @@ If the index refers to a non-existing item, an error will be "thrown" (in Python
 my_list[3]
 ```
 
-```{.output}
+```output
 IndexError: list index out of range
 ```
 
@@ -97,7 +97,7 @@ All items will be shown with the colon `:`
 my_list[:]
 ```
 
-```{.output}
+```output
 [1, 2, 3]
 ```
 
@@ -109,7 +109,7 @@ Get segments of slices using index values to the left or right of the colon. Lef
 my_list[:2]
 ```
 
-```{.output}
+```output
 [1, 2]
 ```
 
@@ -118,7 +118,7 @@ my_list[:2]
 my_list[1:]
 ```
 
-```{.output}
+```output
 [2, 3]
 ```
 If you want to find index of a particular number: 
@@ -128,7 +128,7 @@ If you want to find index of a particular number:
 my_list.index(3)
 ```
 
-```{.output}
+```output
 2
 ```
 
@@ -143,7 +143,7 @@ no_items = len(my_list)
 no_items
 ```
 
-```{.output}
+```output
 3
 ```
 
@@ -162,7 +162,7 @@ my_list.append(4)
 my_list
 ```
 
-```{.output}
+```output
 [1, 2, 3, 4]
 ```
 
@@ -174,7 +174,7 @@ my_list.append('Something')
 my_list
 ```
 
-```{.output}
+```output
 [1, 2, 3, 4, 'Something']
 ```
 
@@ -183,7 +183,7 @@ my_list
 my_list[-1]
 ```
 
-```{.output}
+```output
 'Something'
 ```
 
@@ -196,7 +196,7 @@ my_list.remove('Something')
 my_list
 ```
 
-```{.output}
+```output
 [1, 2, 3, 4]
 ```
 
@@ -213,7 +213,7 @@ my_list = [1, 2, 3]
 print(my_list)
 ```
 
-```{.output}
+```output
 [1, 2, 3]
 ```
 
@@ -221,7 +221,7 @@ print(my_list)
 print(my_list*2)
 ```
 
-```{.output}
+```output
 [1, 2, 3, 1, 2, 3]
 ```
 
@@ -234,7 +234,7 @@ Or:
 print(my_list)
 ```
 
-```{.output}
+```output
 [1, 2, 3]
 ```
 
@@ -242,7 +242,7 @@ print(my_list)
 print(my_list + 10)
 ```
 
-```{.output}
+```output
 TypeError: can only concatenate list (not "int") to list
 ```
 
@@ -266,7 +266,7 @@ my_np_array = array(my_list)
 my_np_array
 ```
 
-```{.output}
+```output
 array([1, 2, 3])
 ```
 
@@ -277,7 +277,7 @@ This is more intuitive:
 print(my_np_array)
 ```
 
-```{.output}
+```output
 [1 2 3]
 ```
 
@@ -285,7 +285,7 @@ print(my_np_array)
 print(my_np_array*2)
 ```
 
-```{.output}
+```output
 [2 4 6]
 ```
 
@@ -296,7 +296,7 @@ Similarly:
 print(my_np_array)
 ```
 
-```{.output}
+```output
 [1 2 3]
 ```
 
@@ -304,7 +304,7 @@ print(my_np_array)
 print(my_np_array + 10)
 ```
 
-```{.output}
+```output
 [11 12 13]
 ```
 
@@ -315,7 +315,7 @@ In order to get the maximum and the index of the maximum in the array:
 my_np_array.max()
 ```
 
-```{.output}
+```output
 3
 ```
 
@@ -324,7 +324,7 @@ my_np_array.max()
 my_np_array.argmax()
 ```
 
-```{.output}
+```output
 2
 ```
 
@@ -347,7 +347,7 @@ my_list = [1, 22, 333, 4444, 55555]
 my_list
 ```
 
-```{.output}
+```output
 [1, 22, 333, 4444, 55555]
 ```
 
@@ -360,7 +360,7 @@ for number in my_list:
     print(number)
 ```
 
-```{.output}
+```output
 1
 22
 333
@@ -377,7 +377,7 @@ for index, item in enumerate(my_list):
     print('Index:', index, '    Item:', item)
 ```
 
-```{.output}
+```output
 Index: 0     Item: 1
 Index: 1     Item: 22
 Index: 2     Item: 333
@@ -394,7 +394,7 @@ for index, item in enumerate(my_list):
     print('Position:', index+1, '    Item:', item)
 ```
 
-```{.output}
+```output
 Position: 1     Item: 1
 Position: 2     Item: 22
 Position: 3     Item: 333

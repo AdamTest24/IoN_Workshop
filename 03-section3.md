@@ -48,7 +48,7 @@ from pandas import read_csv
 df1 = read_csv("data/EEG_background.txt", delim_whitespace=True) 
 ```
 
-```{.output}
+```output
 <string>:3: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
 ```
 
@@ -56,7 +56,7 @@ df1 = read_csv("data/EEG_background.txt", delim_whitespace=True)
 df1.head()
 ```
 
-```{.output}
+```output
        FP1      FP2        F3       F4  ...      EO2      EM1      EM2      PHO
 0  -7.4546  22.8428   6.28159  15.6212  ...  13.7021  12.9109  13.7034  9.37573
 1 -11.1060  21.4828   6.89088  15.0562  ...  13.7942  13.0194  13.7628  9.44731
@@ -78,7 +78,7 @@ If you want to know how many rows and columns there are, use `shape`.
 df1.shape
 ```
 
-```{.output}
+```output
 (2373, 28)
 ```
 
@@ -91,7 +91,7 @@ data_1 = df1.to_numpy()
 data_1.shape
 ```
 
-```{.output}
+```output
 (2373, 28)
 ```
 
@@ -201,7 +201,7 @@ Try to import the data in file `data/EEG_absence.txt` into a new dataframe and c
 df2 = read_csv("data/EEG_absence.txt", delim_whitespace=True) 
 ```
 
-```{.output}
+```output
 <string>:1: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
 ```
 
@@ -213,7 +213,7 @@ data_2 = df2_np[:, :20]
 data_2.shape
 ```
 
-```{.output}
+```output
 (1721, 20)
 ```
 
@@ -269,7 +269,7 @@ freqs = rfftfreq(rows, 1 / sr)
 amplitudes.shape
 ```
 
-```{.output}
+```output
 (861, 20)
 ```
 
