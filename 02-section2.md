@@ -38,12 +38,12 @@ In order for this notebook to run smoothly, please make sure that "Cerebellum.jp
 
 
 
-```python
+``` python
 from matplotlib.image import imread
 ```
 
 
-```python
+``` python
 image = imread('fig/Cerebellum.jpg')
 ```
 
@@ -57,7 +57,7 @@ Note the semicolon at the end of the call of `ax.imshow(image);` - this suppress
 ### **Display Image**
 
 
-```python
+``` python
 from matplotlib.pyplot import subplots, show
 
 fig, ax = subplots()
@@ -76,11 +76,11 @@ Our image is a colour image. A gray image only needs a single intensity value fo
 To check the number of pixels in our image we use the `shape` function (without any parentheses).
 
 
-```python
+``` python
 image.shape
 ```
 
-```output
+``` output
 (154, 327, 3)
 ```
 
@@ -93,11 +93,11 @@ To access the information in a single pixel, we use square brackets containing t
 For example, the pixel in the top left corner would be accessed, as follows:
 
 
-```python
+``` python
 image[0, 0]
 ```
 
-```output
+``` output
 array([255, 255, 255], dtype=uint8)
 ```
 
@@ -107,7 +107,7 @@ Experiment by plotting a section of the image. This is done by specifying pixel 
 
 
 
-```python
+``` python
 fig, ax = subplots()
 
 ax.imshow(image[50:70, 60:100]);
@@ -129,7 +129,7 @@ Here is how we can see the intensities of a single channel. The colon indicates 
 In the below example, we will specify the third value in the square brackets. Out of indices 0 (red), 1 (green) and 2 (blue), we will display just the blue channel, as follows:
 
 
-```python
+``` python
 blue = 2
 
 fig, ax = subplots()
@@ -150,7 +150,7 @@ As pixel intensities are simply numerical values, we can deal with them using Py
 For example, we can infer means and standard deviations, and use these to perform statistical analyses of the pixel intensities:
 
 
-```python
+``` python
 from numpy import mean, std
 
 image_mean = mean(image)
@@ -160,7 +160,7 @@ print('Mean of Intensities:              ', round(image_mean, 2))
 print('Standard deviation of Intensities: ', round(image_std, 2))
 ```
 
-```output
+``` output
 Mean of Intensities:               220.0
 Standard deviation of Intensities:  61.46
 ```
@@ -170,7 +170,7 @@ You could also plot the distribution of these intensities as a histogram. Here w
 In order to specify to Matplotlib that it must look at all values (not just a single row of pixels in the image), we use a function called `ravel()`, which flattens the image:
 
 
-```python
+``` python
 fig, ax = subplots()
 
 ax.hist(image[:, :, blue].ravel(), bins=256);
@@ -185,7 +185,7 @@ This is not too informative: the distribution is distorted by the fact that most
 We can adjust this by telling Matplotlib to only take values that are smaller than 255:
 
 
-```python
+``` python
 fig, ax = subplots()
 
 ax.hist(image[:, :, blue][image[:, :, blue] < 255].ravel(), bins=256);
@@ -214,7 +214,7 @@ The technique of specifying a condition to select or filter the intensities in z
 We can use masking as a simple way to detect objects in an image, based on pixel intensity data: 
 
 
-```python
+``` python
 photo = imread('fig/rose.jpg')
 
 fig, ax = subplots()
@@ -229,7 +229,7 @@ show()
 We will assume that the 'rose' in the picture contains the strongest red intensities. Let us therefore take a look at the histogram of the red channel.
 
 
-```python
+``` python
 red = 0
 
 fig, ax, = subplots()
@@ -246,7 +246,7 @@ Observing this histogram, we might suspect that intensities below 100 correspond
 First, we must define a threshold and display the filtered histogram. It is easier if we assign the filter to a variable. We can call this variable `mask`.
 
 
-```python
+``` python
 threshold = 100
 
 mask = photo[:, :, red] > threshold
@@ -265,7 +265,7 @@ The mask gives us the values where red (and also yellow) parts of the photo are 
 Before we do that, let us create a copy such that the original remains intact, and we do not overwrite it.
 
 
-```python
+``` python
 from numpy import invert
 
 photo_copy = photo.copy()
@@ -284,7 +284,7 @@ show()
 
 
 
-```python
+``` python
 fig.savefig('fig/photo_copy.png', format='png')
 ```
 

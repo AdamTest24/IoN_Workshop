@@ -36,7 +36,7 @@ Firstly, if you haven't already installed NiBabel on your command line, please d
 Let's begin by importing the nibabel package. Here we are importing it as `nib` - an abbreviation of our choosing to access the package's functions more easily in our code. You can use any abbreviation that you like; just remember to call it correctly in any subsequent code that you write.
 
 
-```python
+``` python
 import nibabel as nib
 ```
 
@@ -53,26 +53,26 @@ To familiarise yourself with the NiBabel package, try the [Getting started tutor
 NiBabel has its own import function `load()`. Let's load in our image, and assign this to a variable.
 
 
-```python
+``` python
 img_nibabel = nib.load("data/T1_mask.nii")
 
 type(img_nibabel)
 ```
 
-```output
+``` output
 <class 'nibabel.nifti1.Nifti1Image'>
 ```
 
 The `header` lets you see any metadata that is associated with the image.
 
 
-```python
+``` python
 meta_info = img_nibabel.header
 
 print(meta_info)
 ```
 
-```output
+``` output
 <class 'nibabel.nifti1.Nifti1Header'> object, endian='<'
 sizeof_hdr      : 348
 data_type       : b''
@@ -120,29 +120,29 @@ magic           : b'n+1'
 ```
 
 
-```python
+``` python
 print(meta_info.get_xyzt_units())
 ```
 
-```output
+``` output
 ('mm', 'sec')
 ```
 
 With `get_fdata()` the image intensities can be converted to a Numpy array.
 
 
-```python
+``` python
 img1 = img_nibabel.get_fdata()
 
 img1.shape
 ```
 
-```output
+``` output
 (128, 128, 70)
 ```
 
 
-```python
+``` python
 img_nibabel = nib.load("data/b0_mask.nii")
 
 img2 = img_nibabel.get_fdata()
@@ -151,7 +151,7 @@ img2 = img_nibabel.get_fdata()
 We now import a second image with same spatial resolution, but additional information from another imaging modality.
 
 
-```python
+``` python
 img_nibabel = nib.load("data/b0_mask.nii")
 
 img2 = img_nibabel.get_fdata()
@@ -159,7 +159,7 @@ img2 = img_nibabel.get_fdata()
 img2.shape
 ```
 
-```output
+``` output
 (128, 128, 70)
 ```
 
@@ -168,7 +168,7 @@ For simpler handling, we only select a two-dimensional slice from each 3D image.
 ### **Plot Images**
 
 
-```python
+``` python
 img_slice = 30
 
 img1_slice = img1[:, :, img_slice]
@@ -176,7 +176,7 @@ img2_slice = img2[:, :, img_slice]
 ```
 
 
-```python
+``` python
 from matplotlib.pyplot import subplots, show
 
 fig, ax = subplots(ncols=2, figsize=(15, 5))
@@ -199,7 +199,7 @@ In order to check how similar the images are, we can compare their intensity his
 
 ### **Histograms**
 
-```python
+``` python
 mask = (img1_slice>0) & (img2_slice>0) 
 
 img1_nz = img1_slice[mask]
@@ -226,7 +226,7 @@ Here is the [documentation for the kernel density plot:](https://seaborn.pydata.
 Here are the plots:
 
 
-```python
+``` python
 fig, ax = subplots(1, 3, figsize=(20, 6))
 
 # Scatter plot
@@ -250,7 +250,7 @@ The scatter plot (left) shows a distorted, noisy distribution but too many value
 For Machine Learning, the data need to be in a single two-dimensional array. Rows denote pixels and (in our case) there are two columns for two images. Numpy function concatenate helps us to create the array in the correct form to apply machine learning algorithms. 
 
 
-```python
+``` python
 from numpy import concatenate
 
 all_imgs = concatenate([img1_nz.reshape(-1,1), img2_nz.reshape(-1,1)], axis=1)
@@ -258,7 +258,7 @@ all_imgs = concatenate([img1_nz.reshape(-1,1), img2_nz.reshape(-1,1)], axis=1)
 all_imgs.shape
 ```
 
-```output
+``` output
 (4009, 2)
 ```
 
@@ -283,12 +283,12 @@ Here is the workflow:
 5. Use function `fit_predict` to fit the model to the data and obtain the labels for each pixel. 
 
 
-```python
+``` python
 from sklearn.mixture import GaussianMixture
 ```
 
 
-```python
+``` python
 n_components = 3
 
 RANDOM_STATE = 12345
@@ -301,14 +301,14 @@ all_img_labels = gmm.fit_predict(all_imgs)
 all_img_labels[0]
 ```
 
-```output
+``` output
 1
 ```
 
 We can now plot a scatter plot of the (predicted) labels to see their distribution.
 
 
-```python
+``` python
 fig, ax = subplots(figsize=(4, 4))
 
 ax.scatter(img1_nz, img2_nz, c=all_img_labels, s=100)
@@ -326,7 +326,7 @@ The yellow and green dots seem to indicate "objects" in the image. The purple do
 Now, we need to map the predicted labels from the "intensity space" back to the original image in its anatomical space. We find that the algorithm can pick up structures that can be identified as separate compartments in the image. 
 
 
-```python
+``` python
 from numpy import zeros
 
 all_img_labels_mapped = zeros(img1_slice.shape)
@@ -335,7 +335,7 @@ all_img_labels_mapped[mask] = all_img_labels
 ```
 
 
-```python
+``` python
 fig, ax = subplots(figsize=(4, 4))
 
 ax.imshow(all_img_labels_mapped);

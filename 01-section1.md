@@ -42,18 +42,18 @@ Here is how to create a list using square brackets:
 
 
 
-```python
+``` python
 my_list = [1, 2, 3]
 ```
 
 Type the name and execute a cell to see its content.
 
 
-```python
+``` python
 my_list
 ```
 
-```output
+``` output
 [1, 2, 3]
 ```
 
@@ -61,43 +61,43 @@ To access an item in a list, we use the name of the list, followed by square bra
 
 
 
-```python
+``` python
 my_list[2]
 ```
 
-```output
+``` output
 3
 ```
 
 The last item in an array is referred to with index `-1`
 
 
-```python
+``` python
 my_list[-1]
 ```
 
-```output
+``` output
 3
 ```
 
 If the index refers to a non-existing item, an error will be "thrown" (in Python speak).
 
 
-```python
+``` python
 my_list[3]
 ```
 
-```output
+``` output
 IndexError: list index out of range
 ```
 
 All items will be shown with the colon `:`
 
-```python
+``` python
 my_list[:]
 ```
 
-```output
+``` output
 [1, 2, 3]
 ```
 
@@ -105,30 +105,30 @@ Get segments of slices using index values to the left or right of the colon. Lef
 
 
 
-```python
+``` python
 my_list[:2]
 ```
 
-```output
+``` output
 [1, 2]
 ```
 
 
-```python
+``` python
 my_list[1:]
 ```
 
-```output
+``` output
 [2, 3]
 ```
 If you want to find index of a particular number: 
 
 
-```python
+``` python
 my_list.index(3)
 ```
 
-```output
+``` output
 2
 ```
 
@@ -137,13 +137,13 @@ You can obtain the number of items in a list using the function `len`
 Arguments of functions are provided in round parentheses.
 
 
-```python
+``` python
 no_items = len(my_list)
 
 no_items
 ```
 
-```output
+``` output
 3
 ```
 
@@ -156,47 +156,47 @@ A `list` is a so-called mutable type of array. This means that it is possible to
 More items can also be added in a list using the `append` function.
 
 
-```python
+``` python
 my_list.append(4)
 
 my_list
 ```
 
-```output
+``` output
 [1, 2, 3, 4]
 ```
 
 
 
-```python
+``` python
 my_list.append('Something')
 
 my_list
 ```
 
-```output
+``` output
 [1, 2, 3, 4, 'Something']
 ```
 
 
-```python
+``` python
 my_list[-1]
 ```
 
-```output
+``` output
 'Something'
 ```
 
 Similarly, items can also be deleted from a list using the `remove` function.
 
 
-```python
+``` python
 my_list.remove('Something')
 
 my_list
 ```
 
-```output
+``` output
 [1, 2, 3, 4]
 ```
 
@@ -207,21 +207,21 @@ my_list
 Observe the results of executing the following code:
 
 
-```python
+``` python
 my_list = [1, 2, 3]
 
 print(my_list)
 ```
 
-```output
+``` output
 [1, 2, 3]
 ```
 
-```python
+``` python
 print(my_list*2)
 ```
 
-```output
+``` output
 [1, 2, 3, 1, 2, 3]
 ```
 
@@ -230,19 +230,19 @@ One might expect each item in the list to be squared. Instead, the number of ite
 Or: 
 
 
-```python
+``` python
 print(my_list)
 ```
 
-```output
+``` output
 [1, 2, 3]
 ```
 
-```python
+``` python
 print(my_list + 10)
 ```
 
-```output
+``` output
 TypeError: can only concatenate list (not "int") to list
 ```
 
@@ -255,76 +255,76 @@ In data science and machine learning, we therefore predominantly use `Numpy` arr
 First we import a function from the [Numpy library](https://numpy.org):
 
 
-```python
+``` python
 from numpy import array
 ```
 
 
-```python
+``` python
 my_np_array = array(my_list)
 
 my_np_array
 ```
 
-```output
+``` output
 array([1, 2, 3])
 ```
 
 This is more intuitive:
 
 
-```python
+``` python
 print(my_np_array)
 ```
 
-```output
+``` output
 [1 2 3]
 ```
 
-```python
+``` python
 print(my_np_array*2)
 ```
 
-```output
+``` output
 [2 4 6]
 ```
 
 Similarly:
 
 
-```python
+``` python
 print(my_np_array)
 ```
 
-```output
+``` output
 [1 2 3]
 ```
 
-```python
+``` python
 print(my_np_array + 10)
 ```
 
-```output
+``` output
 [11 12 13]
 ```
 
 In order to get the maximum and the index of the maximum in the array:
 
 
-```python
+``` python
 my_np_array.max()
 ```
 
-```output
+``` output
 3
 ```
 
 
-```python
+``` python
 my_np_array.argmax()
 ```
 
-```output
+``` output
 2
 ```
 
@@ -341,26 +341,26 @@ https://www.nature.com/articles/s41586-020-2649-2
 Let us firstly create a `list` first and then iterate through it using a `for` loop.
 
 
-```python
+``` python
 my_list = [1, 22, 333, 4444, 55555]
 
 my_list
 ```
 
-```output
+``` output
 [1, 22, 333, 4444, 55555]
 ```
 
 Perform a set of operations on each item in the list. Display the item on your screen, using `print`.
 
 
-```python
+``` python
 for number in my_list:
     
     print(number)
 ```
 
-```output
+``` output
 1
 22
 333
@@ -371,13 +371,13 @@ for number in my_list:
 To directly get the indices in a `for` Loop, use `enumerate`. This firstly provides the index, followed by the value of the item.
 
 
-```python
+``` python
 for index, item in enumerate(my_list):
     
     print('Index:', index, '    Item:', item)
 ```
 
-```output
+``` output
 Index: 0     Item: 1
 Index: 1     Item: 22
 Index: 2     Item: 333
@@ -388,13 +388,13 @@ Index: 4     Item: 55555
 If you want to print the positions of items in the list, remember to add `1` in the index and array start from index `0`.
 
 
-```python
+``` python
 for index, item in enumerate(my_list):
     
     print('Position:', index+1, '    Item:', item)
 ```
 
-```output
+``` output
 Position: 1     Item: 1
 Position: 2     Item: 22
 Position: 3     Item: 333

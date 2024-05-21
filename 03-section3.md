@@ -37,26 +37,26 @@ As an example, let us import a time series data. This represent human electroenc
 
 
 
-```python
+``` python
 from pandas import read_csv
 ```
 
 
-```python
+``` python
 # Please check the path to the file on your machine!
 
 df1 = read_csv("data/EEG_background.txt", delim_whitespace=True) 
 ```
 
-```output
+``` output
 <string>:3: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
 ```
 
-```python
+``` python
 df1.head()
 ```
 
-```output
+``` output
        FP1      FP2        F3       F4  ...      EO2      EM1      EM2      PHO
 0  -7.4546  22.8428   6.28159  15.6212  ...  13.7021  12.9109  13.7034  9.37573
 1 -11.1060  21.4828   6.89088  15.0562  ...  13.7942  13.0194  13.7628  9.44731
@@ -74,24 +74,24 @@ The `head()` function gives you an overview of the resulting dataframe.
 If you want to know how many rows and columns there are, use `shape`.
 
 
-```python
+``` python
 df1.shape
 ```
 
-```output
+``` output
 (2373, 28)
 ```
 
 We can then convert the dataframe into a Numpy array. 
 
 
-```python
+``` python
 data_1 = df1.to_numpy()
 
 data_1.shape
 ```
 
-```output
+``` output
 (2373, 28)
 ```
 
@@ -100,7 +100,7 @@ data_1.shape
 If we directly plot the Numpy array, the result will be a mess, as each data recording is plotted on top of another, and it becomes very difficult to visualise.
 
 
-```python
+``` python
 from matplotlib.pyplot import subplots, show
 
 fig, ax = subplots()
@@ -113,7 +113,7 @@ ax.plot(data_1);
 Below is a block of code that improves the plot. We are defining a **Python function**. To activate it, execute the cell.
 
 
-```python
+``` python
 def plot_series(data, sr):
     '''
     Time series plot of multiple time series
@@ -165,7 +165,7 @@ The function is now activated. To use it, you simply need to call it by the name
 Any keyword arguments have to be provided in parantheses, in the correct order. The first argument is an array containing the data. The second argument is the sampling rate. The sampling rate of the imported EEG is 256.
 
 
-```python
+``` python
 sr = 256
 
 plot_series(data_1, sr);
@@ -197,15 +197,15 @@ Try to import the data in file `data/EEG_absence.txt` into a new dataframe and c
 	
 ## ANSWER
 
-```python
+``` python
 df2 = read_csv("data/EEG_absence.txt", delim_whitespace=True) 
 ```
 
-```output
+``` output
 <string>:1: FutureWarning: The 'delim_whitespace' keyword in pd.read_csv is deprecated and will be removed in a future version. Use ``sep='\s+'`` instead
 ```
 
-```python
+``` python
 df2_np = df2.to_numpy()
 
 data_2 = df2_np[:, :20]
@@ -213,11 +213,11 @@ data_2 = df2_np[:, :20]
 data_2.shape
 ```
 
-```output
+``` output
 (1721, 20)
 ```
 
-```python
+``` python
 plot_series(data_2, sr)
 
 show()
@@ -250,7 +250,7 @@ We import the Fourier transform function for real data `rfft` from scipy.fft. We
 We then find out how many rows there are in the data and calculate the (normalised) amplitudes and the corresponding frequencies. The latter uses `rfftfreq` from scipy.fft.
 
 
-```python
+``` python
 from scipy.fft import rfft, rfftfreq
 
 data_2_fft = rfft(data_2, axis=0)
@@ -265,18 +265,18 @@ freqs = rfftfreq(rows, 1 / sr)
 ```
 
 
-```python
+``` python
 amplitudes.shape
 ```
 
-```output
+``` output
 (861, 20)
 ```
 
 To plot the results, we pick a single time series and display its Fourier spectrum. Note how the frequency range is controlled using `set_xlim()`.
 
 
-```python
+``` python
 from matplotlib.pyplot import subplots
 
 chan = 0
@@ -301,7 +301,7 @@ Clinically, this means that the signal recorded during this epileptic seizure is
 Here is a cell with code to display the spectrum of all columns in your array:
 
 
-```python
+``` python
 cols = data_2.shape[1]
 
 fig, axes = subplots(figsize=(6, 15), nrows=cols, sharex=False)

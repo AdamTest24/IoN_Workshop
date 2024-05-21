@@ -33,7 +33,7 @@ To use NetworkX and visualise your networks, you can import the whole package.
 
 
 
-```python
+``` python
 import networkx as nx
 ```
 
@@ -46,7 +46,7 @@ The goal of network science is to obtain a representation of connections or inte
 Let’s start by creating an empty graph object, and adding some nodes to it.
 
 
-```python
+``` python
 firstGraph = nx.Graph()
 
 firstGraph.add_node('Node A')
@@ -56,14 +56,14 @@ firstGraph.add_node('Node C')
 print(firstGraph.nodes)
 ```
 
-```output
+``` output
 ['Node A', 'Node B', 'Node C']
 ```
 
 We have created a graph called firstGraph, added three nodes, and then printed a list of the nodes in this graph. So far, these nodes have no relationship to each other. To specify relationships (representing e.g. interactions) we can add edges to show how the nodes are connected.
 
 
-```python
+``` python
 firstGraph.add_edge('Node A', 'Node B')
 firstGraph.add_edge('Node A', 'Node C')
 firstGraph.add_edge('Node B', 'Node C')
@@ -71,7 +71,7 @@ firstGraph.add_edge('Node B', 'Node C')
 print(firstGraph.edges)
 ```
 
-```output
+``` output
 [('Node A', 'Node B'), ('Node A', 'Node C'), ('Node B', 'Node C')]
 ```
 
@@ -82,7 +82,7 @@ Here we created edges between Nodes A and B, A and C, and B and C, and printed a
 Using the basic graph (firstGraph) that we created, we can begin by visualising it. In NetworkX, we can use function `draw_networkx`.
 
 
-```python
+``` python
 from matplotlib.pyplot import show
 
 nx.draw_networkx(firstGraph)
@@ -95,7 +95,7 @@ show()
 To change the size and the colour of the node symbols:
 
 
-```python
+``` python
 nx.draw_networkx(firstGraph, node_size=2000, node_color='r')
 
 show()
@@ -108,7 +108,7 @@ show()
 Typically, networks are not set up node by node. Here is an example of a function that creates a fully connected network with a pre-specified number of nodes: all possible edges between the nodes are realised.
 
 
-```python
+``` python
 nodes = 10
 
 Graph = nx.complete_graph(nodes)
@@ -125,7 +125,7 @@ show()
 And here is network where connections are drawn randomly but with a pre-defined probability, a random network.
 
 
-```python
+``` python
 edge_probability = 0.5
 
 ER = nx.erdos_renyi_graph(nodes, edge_probability, seed=123)
@@ -142,7 +142,7 @@ show()
 Change the edge probability and see how the network changes.
 
 
-```python
+``` python
 edge_probability = 0.1
 
 ER = nx.erdos_renyi_graph(nodes, edge_probability, seed=123)
@@ -180,7 +180,7 @@ The information is provided in the form of a so-called network or connectivity m
 </p>
 
 
-```python
+``` python
 from pandas import read_csv
 
 data = read_csv('data/celegans131matrix_50.csv', header=None, dtype = "int")
@@ -190,14 +190,14 @@ neurons = data.to_numpy()
 len(neurons)
 ```
 
-```output
+``` output
 50
 ```
 
 This is a connectivity matrix for 50 neurons. To display the matrix, we can use the Matplotlib function `imshow()`.
 
 
-```python
+``` python
 from matplotlib.pyplot import subplots, show
 
 fig, ax = subplots()
@@ -217,7 +217,7 @@ Next, we import the labels and convert the resulting dataframe into a dictionary
 </p>
 
 
-```python
+``` python
 neuron_Names = read_csv('data/celegans131labels_50.csv', header=None)
 
 neuronNames = neuron_Names.to_dict()
@@ -227,7 +227,7 @@ neuronLabels = neuronNames[0]
 print(neuronLabels)
 ```
 
-```output
+``` output
 {0: 'ADFL', 1: 'ADFR', 2: 'ADLL', 3: 'ADLR', 4: 'AFDL', 5: 'AFDR', 6: 'AIAL', 7: 'AIAR', 8: 'AIBR', 9: 'AINL', 10: 'AINR', 11: 'AIZL', 12: 'AIZR', 13: 'ALA', 14: 'ASEL', 15: 'ASER', 16: 'ASGL', 17: 'ASGR', 18: 'ASHL', 19: 'ASHR', 20: 'ASIL', 21: 'ASIR', 22: 'ASJL', 23: 'ASJR', 24: 'ASKL', 25: 'ASKR', 26: 'AUAL', 27: 'AUAR', 28: 'AVAL', 29: 'AVAR', 30: 'AVBL', 31: 'AVBR', 32: 'AVDL', 33: 'AVDR', 34: 'AVEL', 35: 'AVER', 36: 'AVHL', 37: 'AVHR', 38: 'AVJL', 39: 'AVJR', 40: 'AVL', 41: 'AWAL', 42: 'AWAR', 43: 'AWBL', 44: 'AWBR', 45: 'AWCL', 46: 'AWCR', 47: 'BAGL', 48: 'BAGR', 49: 'CEPDL'}
 ```
 
@@ -242,7 +242,7 @@ The connectivity matrix can directly be converted to a Networkx graph.
 - Third, the network is plotted with function`draw_networkx`
 
 
-```python
+``` python
 neuronGraph  = nx.from_numpy_matrix(neurons, 
                                     create_using=nx.DiGraph)   
 
@@ -260,7 +260,7 @@ show()
 The network can be displayed in different layouts, for instance circular:
 
 
-```python
+``` python
 neuronGraph  = nx.from_numpy_matrix(neurons, 
                                     create_using=nx.DiGraph)   
 
@@ -278,7 +278,7 @@ show()
 Quantitative analysis of the network is also possible. For instance, we can plot the number of connections that each neuron has:
 
 
-```python
+``` python
 fig, ax = subplots()
 
 ax.plot(dict(neuronGraph.degree).values(), '-o');
@@ -297,13 +297,13 @@ File `celegans131positions_50.csv` contains information on how the nodes relate 
 </p>
 
 
-```python
+``` python
 neuronPos = read_csv('data/celegans131positions_50.csv', header=None)
 
 neuronPos.items
 ```
 
-```output
+``` output
 <bound method DataFrame.items of            0         1
 0   0.082393 -0.000984
 1   0.083279 -0.003184
@@ -358,7 +358,7 @@ neuronPos.items
 ```
 
 
-```python
+``` python
 nx.draw_networkx(neuronGraph, neuronPos.values,
         node_size=1000,
         labels=neuronLabels)
@@ -369,7 +369,7 @@ show()
 
 
 
-```python
+``` python
 new_pos = neuronPos.copy()
 new_pos.values[:, 0] = -1*neuronPos.values[:, 0]
 
@@ -392,7 +392,7 @@ https://matplotlib.org/stable/api/markers_api.html#module-matplotlib.markers.
 If you have a multi-panel figure, specify the axes for the network with keyword argument `ax`:
 
 
-```python
+``` python
 fig, ax = subplots(figsize=(14, 8), ncols=2)
 
 nx.draw_networkx(neuronGraph, neuronLayout, 
