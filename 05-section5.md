@@ -75,11 +75,11 @@ print(meta_info)
 ``` output
 <class 'nibabel.nifti1.Nifti1Header'> object, endian='<'
 sizeof_hdr      : 348
-data_type       : b''
-db_name         : b''
+data_type       : np.bytes_(b'')
+db_name         : np.bytes_(b'')
 extents         : 0
 session_error   : 0
-regular         : b'r'
+regular         : np.bytes_(b'r')
 dim_info        : 0
 dim             : [  3 128 128  70   1   1   1   1]
 intent_p1       : 0.0
@@ -102,8 +102,8 @@ slice_duration  : 0.0
 toffset         : 0.0
 glmax           : 0
 glmin           : 0
-descrip         : b'5.0.11'
-aux_file        : b''
+descrip         : np.bytes_(b'5.0.11')
+aux_file        : np.bytes_(b'')
 qform_code      : scanner
 sform_code      : scanner
 quatern_b       : 0.0
@@ -115,8 +115,8 @@ qoffset_z       : -86.742615
 srow_x          : [ -2.       0.       0.     125.5061]
 srow_y          : [   0.         2.         0.      -109.38977]
 srow_z          : [  0.         0.         2.2      -86.742615]
-intent_name     : b''
-magic           : b'n+1'
+intent_name     : np.bytes_(b'')
+magic           : np.bytes_(b'n+1')
 ```
 
 
@@ -302,7 +302,7 @@ all_img_labels[0]
 ```
 
 ``` output
-1
+np.int64(1)
 ```
 
 We can now plot a scatter plot of the (predicted) labels to see their distribution.

@@ -316,7 +316,7 @@ my_np_array.max()
 ```
 
 ``` output
-3
+np.int64(3)
 ```
 
 
@@ -325,7 +325,7 @@ my_np_array.argmax()
 ```
 
 ``` output
-2
+np.int64(2)
 ```
 
 Indexing is with square brackets, as for `list` and `tuple`.
